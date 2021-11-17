@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/linearLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="horizontal"
+	tools:context=".MainActivity">
+
+	<LinearLayout
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:orientation="vertical">
+
+		<Button
+			android:id="@+id/btn_canopy_open"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="open the canopy"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_canopy_close"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="close the canopy"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_position_bar_lock"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="tighten the position bar"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_position_bar_unlock"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="release the position bar"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_charge_start"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="start charging"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_charge_stop"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="stop charging"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_drone_on"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="drone on"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_drone_off"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="drone off"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_rc_on"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="remote control on"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_rc_off"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="remote control off"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_android_on"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="android power on"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_android_off"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="android power off"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_NVIDIA_on"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="NVIDIA power on"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_NVIDIA_off"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:text="NVIDIA power off"
+			android:textAllCaps="true" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:gravity="center"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Server Connection Status : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_server_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/device_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Device Name : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_device_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Device Connection Status : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_device_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/canopy_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Canopy Status : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_canopy_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/position_bar_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Position Bar Status : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_position_bar_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/charge_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Charging Status : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_charge_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/charge_voltage"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Voltage : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_charge_voltage"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="0"
+				android:textSize="15sp" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text=" V"
+				android:textSize="15sp" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/charge_current"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Current : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_charge_current"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="0"
+				android:textSize="15sp" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text=" A"
+				android:textSize="15sp" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Battery Temperature : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_battery_temp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="0"
+				android:textSize="15sp" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text=" ℃"
+				android:textSize="15sp" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="AirConditioner Mode : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_air_conditioner_mode"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/android_power"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Android Power : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_android_power"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+
+			<TextView
+				android:id="@+id/NVIDIA_power"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="NVIDIA Power : "
+				android:textSize="15sp" />
+
+			<TextView
+				android:id="@+id/txt_NVIDIA_power"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Unknown"
+				android:textSize="15sp" />
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>

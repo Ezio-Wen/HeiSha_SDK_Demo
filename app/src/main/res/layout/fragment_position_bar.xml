@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center"
+	android:orientation="vertical"
+	tools:context=".fragment.PositionBarFragment">
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Position Bar Connection Status : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_position_bar_conn_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Position Bar Status : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_position_bar_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Limit Switch Status : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_limit_switch_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Limit Switch Fault Status : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_limit_switch_fault_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Motor Fault Status : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_motor_fault_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Vibration : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_vibration"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Tilt : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_tilt"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" °"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Position Bar Post Rate : "
+			android:textSize="15sp" />
+
+		<EditText
+			android:id="@+id/edit_position_bar_post_rate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:inputType="numberDecimal"
+			android:text="0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" s "
+			android:textSize="15sp" />
+
+		<Button
+			android:id="@+id/btn_position_bar_post_rate_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Set" />
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_gravity="center_horizontal"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<Button
+			android:id="@+id/btn_position_bar_release"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="release the position bar"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_position_bar_tighten"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="tighten the position bar"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_position_bar_reset"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="reset the position bar"
+			android:textAllCaps="true" />
+	</LinearLayout>
+
+</LinearLayout>

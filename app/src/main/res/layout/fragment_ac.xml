@@ -16,10 +16,11 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Connection Status : "
+			android:text="AC Connection Status : "
 			android:textSize="15sp" />
 
 		<TextView
+			android:id="@+id/txt_ac_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Unknown"
@@ -35,10 +36,195 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Post Rate : "
+			android:text="AC Working Mode : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_ac_working_mode"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="AD Sampling Temperature 1 : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_ad_temperature_1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0.0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" °C"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="AD Sampling Temperature 2 : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_ad_temperature_2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0.0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" °C"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="AD Sampling Rainfall : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_ad_rainfall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0.0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" mm"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="AD Sampling Smoke Value: "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_ad_smoke"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0.0"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Starting Cooling Temperature : "
 			android:textSize="15sp" />
 
 		<EditText
+			android:id="@+id/edit_ac_cooling_temperature"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:inputType="numberDecimal"
+			android:text="0.0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" °C "
+			android:textSize="15sp" />
+
+		<Button
+			android:id="@+id/btn_ac_cooling_temperature_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Set" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Starting Heating Temperature : "
+			android:textSize="15sp" />
+
+		<EditText
+			android:id="@+id/edit_ac_heating_temperature"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:inputType="numberDecimal"
+			android:text="0.0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" °C "
+			android:textSize="15sp" />
+
+		<Button
+			android:id="@+id/btn_ac_heating_temperature_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Set" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="AC Post Rate : "
+			android:textSize="15sp" />
+
+		<EditText
+			android:id="@+id/edit_ac_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"
@@ -52,6 +238,7 @@
 			android:textSize="15sp" />
 
 		<Button
+			android:id="@+id/btn_ac_post_rate_set"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Set" />
@@ -66,25 +253,60 @@
 		android:gravity="center">
 
 		<Button
+			android:id="@+id/btn_ac_standby_set"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="open the canopy"
-			android:textAllCaps="true" />
+			android:text="Standby Mode"
+			android:textAllCaps="false" />
 
 		<Button
+			android:id="@+id/btn_ac_strong_cooling_set"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="close the canopy"
-			android:textAllCaps="true" />
+			android:text="Strong Cooling Mode"
+			android:textAllCaps="false" />
 
 		<Button
+			android:id="@+id/btn_ac_auto_cooling_set"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="reset the canopy"
-			android:textAllCaps="true" />
+			android:text="Auto Cooling Mode"
+			android:textAllCaps="false" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_gravity="center_horizontal"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<Button
+			android:id="@+id/btn_ac_strong_heating_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Strong Heating Mode"
+			android:textAllCaps="false" />
+
+		<Button
+			android:id="@+id/btn_ac_auto_heating_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Auto Heating Mode"
+			android:textAllCaps="false" />
+
+		<Button
+			android:id="@+id/btn_ac_ventilate_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Ventilate Mode"
+			android:textAllCaps="false" />
 	</LinearLayout>
 
 </LinearLayout>

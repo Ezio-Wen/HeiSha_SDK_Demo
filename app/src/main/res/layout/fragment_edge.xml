@@ -16,10 +16,11 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Connection Status : "
+			android:text="Android Switch Status : "
 			android:textSize="15sp" />
 
 		<TextView
+			android:id="@+id/txt_android_switch_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Unknown"
@@ -35,10 +36,163 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Post Rate : "
+			android:text="NVIDIA Switch Status : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_nvidia_switch_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="GPS Connection Status : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_gps_conn_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="GPS Locate Mode : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_gps_locate_mode"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Location : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_location"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Hygrothermograph Connection Status : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_hygrothermograph_conn_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Temperature : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_temperature"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0.0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" °C"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Humidity : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_humidity"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0.0"
+			android:textSize="15sp" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" %"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Edge Post Rate : "
 			android:textSize="15sp" />
 
 		<EditText
+			android:id="@+id/edit_edge_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"
@@ -52,6 +206,7 @@
 			android:textSize="15sp" />
 
 		<Button
+			android:id="@+id/btn_edge_post_rate_set"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Set" />
@@ -66,24 +221,67 @@
 		android:gravity="center">
 
 		<Button
+			android:id="@+id/btn_rc_turn_on"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="open the canopy"
+			android:text="Turn on the RC"
 			android:textAllCaps="true" />
 
 		<Button
+			android:id="@+id/btn_rc_turn_off"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="close the canopy"
+			android:text="Turn off the RC"
+			android:textAllCaps="true" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_gravity="center_horizontal"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<Button
+			android:id="@+id/btn_android_turn_on"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Turn on the Android"
 			android:textAllCaps="true" />
 
 		<Button
+			android:id="@+id/btn_android_turn_off"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="reset the canopy"
+			android:text="Turn off the Android"
+			android:textAllCaps="true" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_gravity="center_horizontal"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<Button
+			android:id="@+id/btn_nvidia_turn_on"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Turn on the NVIDIA"
+			android:textAllCaps="true" />
+
+		<Button
+			android:id="@+id/btn_nvidia_turn_off"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Turn off the NVIDIA"
 			android:textAllCaps="true" />
 	</LinearLayout>
 

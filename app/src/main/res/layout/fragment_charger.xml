@@ -259,7 +259,8 @@
 			android:id="@+id/spinner_battery_type"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" />
+			android:layout_weight="1"
+			android:entries="@array/spinnerArray" />
 
 	</LinearLayout>
 
@@ -291,7 +292,7 @@
 			android:textSize="15sp" />
 
 		<EditText
-			android:id="@+id/edit_chargern_post_rate"
+			android:id="@+id/edit_charger_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"

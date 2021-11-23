@@ -16,10 +16,11 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Connection Status : "
+			android:text="Server Connection Status : "
 			android:textSize="15sp" />
 
 		<TextView
+			android:id="@+id/txt_server_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Unknown"
@@ -35,27 +36,95 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Post Rate : "
+			android:text="Device Connection Status : "
 			android:textSize="15sp" />
 
-		<EditText
+		<TextView
+			android:id="@+id/txt_device_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:inputType="numberDecimal"
-			android:text="0"
+			android:text="Unknown"
 			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" s "
+			android:text="Device Name : "
 			android:textSize="15sp" />
 
-		<Button
+		<TextView
+			android:id="@+id/txt_device_name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Set" />
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
 
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Configurable Parameters Version : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_param_version"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Configurable Parameters Total : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_param_total"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:textSize="15sp" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Reconnection times : "
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/txt_reconn_times"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0"
+			android:textSize="15sp" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -66,25 +135,21 @@
 		android:gravity="center">
 
 		<Button
+			android:id="@+id/btn_system_reset"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="open the canopy"
+			android:text="System Reset"
 			android:textAllCaps="true" />
 
 		<Button
+			android:id="@+id/btn_disconnect"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="close the canopy"
-			android:textAllCaps="true" />
-
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="reset the canopy"
-			android:textAllCaps="true" />
+			android:text="Disconnect"
+			android:textAllCaps="true"
+			android:visibility="gone" />
 	</LinearLayout>
 
 </LinearLayout>

@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.heisha.heisha_sdk.Component.AirConditioner.AirConditioner;
 import com.heisha.heisha_sdk.Component.AirConditioner.AirConditionerStateCallback;
 import com.heisha.heisha_sdk.Component.AirConditioner.AirConditionerWorkingMode;
@@ -52,6 +53,8 @@ import com.heisha.heisha_sdk.Product.DNEST;
 import com.heisha.heisha_sdk_demo.Listener.AirConditionerListener;
 import com.heisha.heisha_sdk_demo.Listener.CanopyListener;
 import com.heisha.heisha_sdk_demo.Listener.ChargerListener;
+import com.heisha.heisha_sdk_demo.Listener.ComponentListener;
+import com.heisha.heisha_sdk_demo.Listener.ControlCenterListener;
 import com.heisha.heisha_sdk_demo.Listener.EdgeListener;
 import com.heisha.heisha_sdk_demo.Listener.PositionBarListener;
 import com.heisha.heisha_sdk_demo.fragment.ACFragment;
@@ -64,8 +67,6 @@ import com.heisha.heisha_sdk_demo.utils.ToolBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter.SERVICE_PARAM_POST_RATE_CANOPY;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 	private LinearLayout mMainToolbar;
 	private ViewPager mMainViewPager;
 	private ToolBarUtil mToolBarUtil;
+	private FloatingActionButton btnLogin;
 	private List<Fragment> mFragmentList = new ArrayList<>();
 
 	private CanopyListener mCanopyListener;
@@ -90,9 +92,15 @@ public class MainActivity extends AppCompatActivity {
 	private ChargerListener mChargerListener;
 	private AirConditionerListener mACListener;
 	private EdgeListener mEdgeListener;
+	private ControlCenterListener mControlCerterListener;
 
 	public boolean isServerConnected = false;
 	public boolean isDeviceConnected = false;
+
+	public String mDeviceName;
+
+	public int reconnectionTimes = 0;
+	private boolean reConnectionFlag = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,16 +128,21 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onServerConnected(boolean b, String s) {
-//				txtServerStatus.setText(ConnStatus.CONNECTED.toString());
 				isServerConnected = true;
+				if (reConnectionFlag) {
+					reconnectionTimes++;
+					reConnectionFlag = false;
+				}
+				mControlCerterListener.onServerConnectionChanged(isServerConnected, reconnectionTimes);
 				Log.d(TAG, "connectComplete: 连接服务器成功");
 				Toast.makeText(MainActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onServerDisconnected(Throwable throwable) {
-//				txtServerStatus.setText(ConnStatus.DISCONNECTED.toString());
 				isServerConnected = false;
+				reConnectionFlag = true;
+				mControlCerterListener.onServerConnectionChanged(isServerConnected, reconnectionTimes);
 				Log.d(TAG, "connectionLost: 服务器连接丢失");
 				throwable.printStackTrace();
 			}
@@ -138,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
 			public void onProductConnected(final String deviceName) {
 				Log.d(TAG, "onProductConnected: 设备连接成功");
 				isDeviceConnected = true;
-//				txtDeviceName.setText(deviceName);
-//				txtDeviceStatus.setText(ConnStatus.CONNECTED.toString());
+				mDeviceName = deviceName;
+				mControlCerterListener.onDeviceConnectionChanged(isDeviceConnected, mDeviceName);
 				Toast.makeText(MainActivity.this, "设备连接成功", Toast.LENGTH_SHORT).show();
 				initDevice(deviceName);
 				initDeviceCallback();
@@ -147,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onProductDisconnected() {
-//				txtDeviceStatus.setText(ConnStatus.DISCONNECTED.toString());
 				isDeviceConnected = false;
+				mControlCerterListener.onDeviceConnectionChanged(isDeviceConnected, mDeviceName);
 				Log.d(TAG, "onProductConnected: 设备连接丢失");
 			}
 
@@ -180,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
 	private void initView() {
 		mMainToolbar = this.findViewById(R.id.layout_tool_bar);
 		mMainViewPager = this.findViewById(R.id.view_pager_fragment);
+		btnLogin = this.findViewById(R.id.btn_login);
 		mToolBarUtil = new ToolBarUtil();
 		String[] toolBarTitles = {"Control Center", "Canopy", "Position Bar", "Charger", "AC", "Edge Computing"};
 		mToolBarUtil.createToolBar(mMainToolbar, toolBarTitles);
@@ -192,6 +206,36 @@ public class MainActivity extends AppCompatActivity {
 		mFragmentList.add(new ACFragment());
 		mFragmentList.add(new EdgeFragment());
 		mMainViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
+
+		btnLogin.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+				LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.dialog_connect, null);
+				final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
+				dialog.setTitle("Connect to Device");
+				dialog.setView(layout);
+				dialog.show();
+				final EditText editServerURL = layout.findViewById(R.id.edit_server_address);
+				final EditText editDeviceSerial = layout.findViewById(R.id.edit_device_serial);
+				Button btnConnect = layout.findViewById(R.id.btn_connect);
+				editServerURL.setText(mPref.getString("serverURL", ""));
+				editDeviceSerial.setText(mPref.getString("deviceSerial", ""));
+				btnConnect.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						String serverURL = editServerURL.getText().toString();
+						String deviceSerial = editDeviceSerial.getText().toString();
+						registApp(serverURL, deviceSerial);
+						SharedPreferences.Editor edit = mPref.edit();
+						edit.putString("serverURL", serverURL);
+						edit.putString("deviceSerial", deviceSerial);
+						edit.apply();
+						dialog.dismiss();
+					}
+				});
+			}
+		});
 	}
 
 	private void initListener() {
@@ -286,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
 		mEdgeComputing.setStateCallback(new EdgeStateCallback() {
 			@Override
 			public void onUpdate(PowerState androidPowerState, PowerState NVIDIAPowerState) {
-				Log.d(TAG, "Switch: android power:" + androidPowerState.toString() + ", NVIDIA power:" + NVIDIAPowerState.toString());
+				Log.d(TAG, "Edge: android power:" + androidPowerState.toString() + ", NVIDIA power:" + NVIDIAPowerState.toString());
 				if (mEdgeListener != null) {
 					mEdgeListener.onPost(androidPowerState, NVIDIAPowerState);
 				}
@@ -294,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onOperateResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-				Log.d(TAG, "switch operate:" + serviceCode.toString() + ", result:" + serviceResult.toString());
+				Log.d(TAG, "Edge operate:" + serviceCode.toString() + ", result:" + serviceResult.toString());
 				if (mEdgeListener != null) {
 					mEdgeListener.onOperationResult(serviceCode, serviceResult);
 				}
@@ -314,12 +358,16 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onOperateResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-
+				if (mControlCerterListener != null) {
+					mControlCerterListener.onOperationResult(serviceCode, serviceResult);
+				}
 			}
 
 			@Override
 			public void onGetConfigVersionInfo(int version, int paramNum) {
-
+				if (mControlCerterListener != null) {
+					mControlCerterListener.onGetConfigVersionInfo(version, paramNum);
+				}
 			}
 
 			@Override
@@ -329,17 +377,30 @@ public class MainActivity extends AppCompatActivity {
 						if (mCanopyListener != null)
 							mCanopyListener.onGetParam(result, paramIndex, value);
 						break;
+
 					case SERVICE_PARAM_POST_RATE_POSBAR:
 						if (mPositionBarListener != null)
 							mPositionBarListener.onGetParam(result, paramIndex, value);
 						break;
+
 					case SERVICE_PARAM_POST_RATE_CD:
+					case SERVICE_PARAM_BATTERY_TYPE:
+					case SERVICE_PARAM_FORCE_POWER_ON_CHARGE:
 						if (mChargerListener != null)
 							mChargerListener.onGetParam(result, paramIndex, value);
 						break;
+
 					case SERVICE_PARAM_POST_RATE_EDGE:
 						if (mEdgeListener != null)
 							mEdgeListener.onGetParam(result, paramIndex, value);
+						break;
+
+					case SERVICE_PARAM_POST_RATE_AC:
+					case SERVICE_PARAM_AIR_ROOM_MAXTEM:
+					case SERVICE_PARAM_AIR_ROOM_MINTEM:
+						if (mACListener != null) {
+							mACListener.onGetParam(result, paramIndex, value);
+						}
 						break;
 				}
 			}
@@ -356,12 +417,22 @@ public class MainActivity extends AppCompatActivity {
 							mPositionBarListener.onSetParam(serviceResult, configParameter, configFailReason);
 						break;
 					case SERVICE_PARAM_POST_RATE_CD:
+					case SERVICE_PARAM_BATTERY_TYPE:
+					case SERVICE_PARAM_FORCE_POWER_ON_CHARGE:
 						if (mChargerListener != null)
 							mChargerListener.onSetParam(serviceResult, configParameter, configFailReason);
 						break;
 					case SERVICE_PARAM_POST_RATE_EDGE:
 						if (mEdgeListener != null)
 							mEdgeListener.onSetParam(serviceResult, configParameter, configFailReason);
+						break;
+
+					case SERVICE_PARAM_POST_RATE_AC:
+					case SERVICE_PARAM_AIR_ROOM_MAXTEM:
+					case SERVICE_PARAM_AIR_ROOM_MINTEM:
+						if (mACListener != null) {
+							mACListener.onSetParam(serviceResult, configParameter, configFailReason);
+						}
 						break;
 				}
 			}
@@ -394,7 +465,7 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		if (item.getItemId() == R.id.item_connect) {
+	/*	if (item.getItemId() == R.id.item_connect) {
 			LayoutInflater inflater = LayoutInflater.from(this);
 			LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.dialog_connect, null);
 			final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
@@ -419,7 +490,9 @@ public class MainActivity extends AppCompatActivity {
 					dialog.dismiss();
 				}
 			});
+
 		}
+	*/
 		return true;
 	}
 
@@ -441,5 +514,9 @@ public class MainActivity extends AppCompatActivity {
 
 	public void setEdgeListener(EdgeListener edgeListener) {
 		mEdgeListener = edgeListener;
+	}
+
+	public void setControlCerterListener(ControlCenterListener controlCerterListener) {
+		mControlCerterListener = controlCerterListener;
 	}
 }

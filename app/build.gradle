@@ -8,8 +8,8 @@ android {
         applicationId "com.heisha.heisha_sdk_demo"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 11
-        versionName "1.1.1.2111231037"
+        versionCode 12
+        versionName "1.1.2.2111241435"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

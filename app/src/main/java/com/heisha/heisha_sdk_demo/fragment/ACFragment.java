@@ -236,27 +236,27 @@ public class ACFragment extends Fragment {
 							break;
 
 						case R.id.btn_ac_standby_set:
-							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_IDLE);
+//							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_IDLE);
 							break;
 
 						case R.id.btn_ac_strong_cooling_set:
-							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_STRONGCOLD);
+//							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_STRONGCOLD);
 							break;
 
 						case R.id.btn_ac_auto_cooling_set:
-							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_AUTOCOLD);
+//							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_AUTOCOLD);
 							break;
 
 						case R.id.btn_ac_strong_heating_set:
-							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_STRONGHEAT);
+//							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_STRONGHEAT);
 							break;
 
 						case R.id.btn_ac_auto_heating_set:
-							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_AUTOHEAT);
+//							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_AUTOHEAT);
 							break;
 
 						case R.id.btn_ac_ventilate_set:
-							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_VENTILATE);
+//							mContainerActivity.mAirConditioner.setAirConditionerWorkingMode(ServiceCode.AIR_CONDITION_MODE_VENTILATE);
 							break;
 					}
 				}

@@ -87,7 +87,7 @@ public class ControlCenterFragment extends Fragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		initListener();
-//		requestParam(ConfigParameter.SERVICE_PARAM_VERSION);
+		requestParam(ConfigParameter.SERVICE_PARAM_VERSION);
 	}
 
 	private void initView(View view) {

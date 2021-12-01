@@ -266,9 +266,11 @@ public class CanopyFragment extends Fragment {
 				txtLocatorConnStatus.setText(canopyLocator.getGPSConnState().toString());
 				txtCanopyLocation.setText(canopyLocator.getLongitude() / 10000000f + (canopyLocator.getEastOrWest() == 0 ? "E, " : "W, ")
 						+ canopyLocator.getLatitude() / 10000000f + (canopyLocator.getSouthOrNorth() == 0 ? "N" : "S"));
-				txtTem1.setText(String.valueOf((thermohygrograph_1.getTemperature() - 1000) / 10f));
+				float temperature = (thermohygrograph_1.getTemperature() - 1000) / 10f;
+				txtTem1.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
 				txtHum1.setText(String.valueOf(thermohygrograph_1.getHumidity()));
-				txtTem2.setText(String.valueOf((thermohygrograph_2.getTemperature() - 1000) / 10f));
+				temperature = (thermohygrograph_2.getTemperature() - 1000) / 10f;
+				txtTem2.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
 				txtHum2.setText(String.valueOf(thermohygrograph_2.getHumidity()));
 				txtWindSpeed.setText(String.valueOf(anemograph.getWindSpeed() / 10f));
 			}

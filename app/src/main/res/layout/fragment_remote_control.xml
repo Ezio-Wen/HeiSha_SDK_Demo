@@ -5,7 +5,7 @@
 	android:layout_height="match_parent"
 	android:gravity="center"
 	android:orientation="vertical"
-	tools:context=".fragment.EdgeFragment">
+	tools:context=".fragment.RemoteControlFragment">
 
 	<LinearLayout
 		android:layout_width="wrap_content"
@@ -16,11 +16,11 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Android Switch Status : "
+			android:text="Remote Control Connection Status : "
 			android:textSize="15sp" />
 
 		<TextView
-			android:id="@+id/txt_android_switch_status"
+			android:id="@+id/txt_rc_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Unknown"
@@ -36,11 +36,11 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="NVIDIA Switch Status : "
+			android:text="Remote Control Status : "
 			android:textSize="15sp" />
 
 		<TextView
-			android:id="@+id/txt_nvidia_switch_status"
+			android:id="@+id/txt_rc_power_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Unknown"
@@ -56,71 +56,11 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="GPS Connection Status : "
+			android:text="Remote Control USB Cable Status : "
 			android:textSize="15sp" />
 
 		<TextView
-			android:id="@+id/txt_gps_conn_status"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="GPS Locate Mode : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_gps_locate_mode"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Location : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_location"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Hygrothermograph Connection Status : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_hygrothermograph_conn_status"
+			android:id="@+id/txt_rc_usb_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Unknown"
@@ -140,7 +80,7 @@
 			android:textSize="15sp" />
 
 		<TextView
-			android:id="@+id/txt_temperature"
+			android:id="@+id/txt_rc_temperature"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="0.0"
@@ -166,7 +106,7 @@
 			android:textSize="15sp" />
 
 		<TextView
-			android:id="@+id/txt_humidity"
+			android:id="@+id/txt_rc_humidity"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="0.0"
@@ -188,11 +128,11 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Edge Post Rate : "
+			android:text="Remote Control Post Rate : "
 			android:textSize="15sp" />
 
 		<EditText
-			android:id="@+id/edit_edge_post_rate"
+			android:id="@+id/edit_rc_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"
@@ -206,7 +146,7 @@
 			android:textSize="15sp" />
 
 		<Button
-			android:id="@+id/btn_edge_post_rate_set"
+			android:id="@+id/btn_rc_post_rate_set"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Set" />
@@ -218,22 +158,24 @@
 		android:layout_height="0dp"
 		android:layout_gravity="center_horizontal"
 		android:layout_weight="1"
-		android:gravity="center"
-		android:visibility="gone">
+		android:gravity="center">
 
 		<Button
+			android:id="@+id/btn_rc_turn_on"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="Turn on the RC"
+			android:text="Turn On RC"
 			android:textAllCaps="true" />
 
 		<Button
+			android:id="@+id/btn_rc_turn_off"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="Turn off the RC"
+			android:text="Turn Off RC"
 			android:textAllCaps="true" />
+
 	</LinearLayout>
 
 	<LinearLayout
@@ -244,44 +186,21 @@
 		android:gravity="center">
 
 		<Button
-			android:id="@+id/btn_android_turn_on"
+			android:id="@+id/btn_rc_usb_plug_in"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="Turn on the Android"
+			android:text="Plug In RC USB"
 			android:textAllCaps="true" />
 
 		<Button
-			android:id="@+id/btn_android_turn_off"
+			android:id="@+id/btn_rc_usb_pull_out"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="Turn off the Android"
-			android:textAllCaps="true" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_gravity="center_horizontal"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<Button
-			android:id="@+id/btn_nvidia_turn_on"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="Turn on the NVIDIA"
+			android:text="Pull Out RC USB"
 			android:textAllCaps="true" />
 
-		<Button
-			android:id="@+id/btn_nvidia_turn_off"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="Turn off the NVIDIA"
-			android:textAllCaps="true" />
 	</LinearLayout>
 
 </LinearLayout>

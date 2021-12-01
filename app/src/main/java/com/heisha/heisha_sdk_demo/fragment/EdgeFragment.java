@@ -64,8 +64,8 @@ public class EdgeFragment extends Fragment {
 	private EditText editPostRate;
 
 	private Button btnSetPostRate;
-	private Button btnTurnOnRC;
-	private Button btnTurnOffRC;
+	//	private Button btnTurnOnRC;
+//	private Button btnTurnOffRC;
 	private Button btnTurnOnAndroid;
 	private Button btnTurnOffAndroid;
 	private Button btnTurnOnNVIDIA;
@@ -157,8 +157,8 @@ public class EdgeFragment extends Fragment {
 		editPostRate = view.findViewById(R.id.edit_edge_post_rate);
 
 		btnSetPostRate = view.findViewById(R.id.btn_edge_post_rate_set);
-		btnTurnOnRC = view.findViewById(R.id.btn_rc_turn_on);
-		btnTurnOffRC = view.findViewById(R.id.btn_rc_turn_off);
+//		btnTurnOnRC = view.findViewById(R.id.btn_rc_turn_on);
+//		btnTurnOffRC = view.findViewById(R.id.btn_rc_turn_off);
 		btnTurnOnAndroid = view.findViewById(R.id.btn_android_turn_on);
 		btnTurnOffAndroid = view.findViewById(R.id.btn_android_turn_off);
 		btnTurnOnNVIDIA = view.findViewById(R.id.btn_nvidia_turn_on);
@@ -188,17 +188,21 @@ public class EdgeFragment extends Fragment {
 							}
 							setParam(ConfigParameter.SERVICE_PARAM_POST_RATE_EDGE, Integer.parseInt(editPostRate.getText().toString()));
 							break;
-						case R.id.btn_rc_turn_on:
-							break;
-						case R.id.btn_rc_turn_off:
-							break;
+//						case R.id.btn_rc_turn_on:
+//							break;
+//						case R.id.btn_rc_turn_off:
+//							break;
 						case R.id.btn_android_turn_on:
+							mContainerActivity.mEdgeComputing.androidTurnOn();
 							break;
 						case R.id.btn_android_turn_off:
+							mContainerActivity.mEdgeComputing.androidTurnOff();
 							break;
 						case R.id.btn_nvidia_turn_on:
+							mContainerActivity.mEdgeComputing.NVIDIATurnOn();
 							break;
 						case R.id.btn_nvidia_turn_off:
+							mContainerActivity.mEdgeComputing.NVIDIATurnOff();
 							break;
 					}
 				}
@@ -206,8 +210,8 @@ public class EdgeFragment extends Fragment {
 		};
 
 		btnSetPostRate.setOnClickListener(listener);
-		btnTurnOnRC.setOnClickListener(listener);
-		btnTurnOffRC.setOnClickListener(listener);
+//		btnTurnOnRC.setOnClickListener(listener);
+//		btnTurnOffRC.setOnClickListener(listener);
 		btnTurnOnAndroid.setOnClickListener(listener);
 		btnTurnOffAndroid.setOnClickListener(listener);
 		btnTurnOnNVIDIA.setOnClickListener(listener);
@@ -243,8 +247,9 @@ public class EdgeFragment extends Fragment {
 				txtLocation.setText(gpsLocator.getLongitude() / 10000000f + (gpsLocator.getEastOrWest() == 0 ? "E, " : "W, ")
 						+ gpsLocator.getLatitude() / 10000000f + (gpsLocator.getSouthOrNorth() == 0 ? "N" : "S"));
 				txtHygrothermographConn.setText(hygrothermograph.getHygrothermographConnState().toString());
-				txtTemperature.setText(String.valueOf((hygrothermograph.getTemperature() - 1000) / 10f));
-				txtTemperature.setText(String.valueOf(hygrothermograph.getHumidity() / 10f));
+				float temperature = (hygrothermograph.getTemperature() - 1000) / 10f;
+				txtTemperature.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
+				txtHumidity.setText(String.valueOf(hygrothermograph.getHumidity() / 10f));
 			}
 
 			@Override

@@ -45,6 +45,8 @@ import com.heisha.heisha_sdk.Component.EdgeComputing.PowerState;
 import com.heisha.heisha_sdk.Component.PositionBar.PositionBar;
 import com.heisha.heisha_sdk.Component.PositionBar.PositionBarState;
 import com.heisha.heisha_sdk.Component.PositionBar.PositionBarStateCallback;
+import com.heisha.heisha_sdk.Component.RemoteControl.RemoteControl;
+import com.heisha.heisha_sdk.Component.RemoteControl.RemoteControlStateCallback;
 import com.heisha.heisha_sdk.Manager.HSSDKManager;
 import com.heisha.heisha_sdk.Manager.SDKManagerCallback;
 import com.heisha.heisha_sdk.Manager.ServiceCode;
@@ -57,12 +59,14 @@ import com.heisha.heisha_sdk_demo.Listener.ComponentListener;
 import com.heisha.heisha_sdk_demo.Listener.ControlCenterListener;
 import com.heisha.heisha_sdk_demo.Listener.EdgeListener;
 import com.heisha.heisha_sdk_demo.Listener.PositionBarListener;
+import com.heisha.heisha_sdk_demo.Listener.RemoteControlListener;
 import com.heisha.heisha_sdk_demo.fragment.ACFragment;
 import com.heisha.heisha_sdk_demo.fragment.CanopyFragment;
 import com.heisha.heisha_sdk_demo.fragment.ChargerFragment;
 import com.heisha.heisha_sdk_demo.fragment.ControlCenterFragment;
 import com.heisha.heisha_sdk_demo.fragment.EdgeFragment;
 import com.heisha.heisha_sdk_demo.fragment.PositionBarFragment;
+import com.heisha.heisha_sdk_demo.fragment.RemoteControlFragment;
 import com.heisha.heisha_sdk_demo.utils.ToolBarUtil;
 
 import java.util.ArrayList;
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
 	private SharedPreferences mPref;
 	private static final String TAG = "MainActivity";
+
 	private DNEST mDNEST;
 	public Canopy mCanopy;
 	public PositionBar mPositionBar;
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 	public EdgeComputing mEdgeComputing;
 	public ControlCenter mControlCenter;
 	public AirConditioner mAirConditioner;
+	public RemoteControl mRemoteControl;
 
 	private LinearLayout mMainToolbar;
 	private ViewPager mMainViewPager;
@@ -92,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 	private ChargerListener mChargerListener;
 	private AirConditionerListener mACListener;
 	private EdgeListener mEdgeListener;
+	private RemoteControlListener mRemoteControlListener;
 	private ControlCenterListener mControlCerterListener;
 
 	public boolean isServerConnected = false;
@@ -186,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
 		@Override
 		public int getCount() {
-			return 6;
+			return 7;
 		}
 	}
 
@@ -195,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
 		mMainViewPager = this.findViewById(R.id.view_pager_fragment);
 		btnLogin = this.findViewById(R.id.btn_login);
 		mToolBarUtil = new ToolBarUtil();
-		String[] toolBarTitles = {"Control Center", "Canopy", "Position Bar", "Charger", "AC", "Edge Computing"};
+		String[] toolBarTitles = {"Control Center", "Canopy", "Position Bar", "Charger", "Air Conditioner", "Edge Computing", "Remote Control"};
 		mToolBarUtil.createToolBar(mMainToolbar, toolBarTitles);
 		mToolBarUtil.changeColor(0);
 
@@ -205,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
 		mFragmentList.add(new ChargerFragment());
 		mFragmentList.add(new ACFragment());
 		mFragmentList.add(new EdgeFragment());
+		mFragmentList.add(new RemoteControlFragment());
 		mMainViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
 
 		btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -272,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
 		mEdgeComputing = mDNEST.getEdgeComputing();
 		mControlCenter = mDNEST.getControlCenter();
 		mAirConditioner = mDNEST.getAirConditioner();
+		mRemoteControl = mDNEST.getRemoteControl();
 	}
 
 	private void initDeviceCallback() {
@@ -402,6 +411,11 @@ public class MainActivity extends AppCompatActivity {
 							mACListener.onGetParam(result, paramIndex, value);
 						}
 						break;
+
+					case SERVICE_PARAM_POST_RATE_RC:
+						if (mRemoteControlListener != null)
+							mRemoteControlListener.onGetParam(result, paramIndex, value);
+						break;
 				}
 			}
 
@@ -434,6 +448,11 @@ public class MainActivity extends AppCompatActivity {
 							mACListener.onSetParam(serviceResult, configParameter, configFailReason);
 						}
 						break;
+
+					case SERVICE_PARAM_POST_RATE_RC:
+						if (mRemoteControlListener != null)
+							mRemoteControlListener.onSetParam(serviceResult, configParameter, configFailReason);
+						break;
 				}
 			}
 		});
@@ -441,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
 		mAirConditioner.setStateCallback(new AirConditionerStateCallback() {
 			@Override
 			public void onUpdate(ConnStatus connStatus, AirConditionerWorkingMode airConditionerWorkingMode) {
-				Log.d(TAG, "AirConditioner: connection state:" + connStatus.toString() + ", Working Mode:" + airConditionerWorkingMode.toString());
+				Log.d(TAG, "AirConditioner: connection state: " + connStatus.toString() + ", Working Mode:" + airConditionerWorkingMode.toString());
 				if (mACListener != null) {
 					mACListener.onPost(connStatus, airConditionerWorkingMode);
 				}
@@ -449,9 +468,27 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onOperateResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-				Log.d(TAG, "switch operate:" + serviceCode.toString() + ", result:" + serviceResult.toString());
+				Log.d(TAG, "AirConditioner operate:" + serviceCode.toString() + ", result:" + serviceResult.toString());
 				if (mACListener != null) {
 					mACListener.onOperationResult(serviceCode, serviceResult);
+				}
+			}
+		});
+
+		mRemoteControl.setStateCallback(new RemoteControlStateCallback() {
+			@Override
+			public void onUpdate(ConnStatus connStatus) {
+				Log.d(TAG, "RemoteControl connection state: " + connStatus.toString());
+				if (mRemoteControlListener != null) {
+					mRemoteControlListener.onPost(connStatus);
+				}
+			}
+
+			@Override
+			public void onOperateResult(ServiceCode serviceCode, ServiceResult serviceResult) {
+				Log.d(TAG, "RemoteControl operate:" + serviceCode.toString() + ", result:" + serviceResult.toString());
+				if (mRemoteControlListener != null) {
+					mRemoteControlListener.onOperationResult(serviceCode, serviceResult);
 				}
 			}
 		});
@@ -514,6 +551,10 @@ public class MainActivity extends AppCompatActivity {
 
 	public void setEdgeListener(EdgeListener edgeListener) {
 		mEdgeListener = edgeListener;
+	}
+
+	public void setRemoteControlListener(RemoteControlListener remoteControlListener) {
+		mRemoteControlListener = remoteControlListener;
 	}
 
 	public void setControlCerterListener(ControlCenterListener controlCerterListener) {

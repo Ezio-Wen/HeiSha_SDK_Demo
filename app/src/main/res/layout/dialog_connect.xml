@@ -22,6 +22,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:ems="15"
+			android:hint="tcp://118.190.91.165:9002"
 			android:inputType="textEmailAddress"
 			android:text="tcp://" />
 

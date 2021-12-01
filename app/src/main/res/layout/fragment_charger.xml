@@ -226,32 +226,6 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Charging Remaining Time : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_charging_remaining_time"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text=" min"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
 			android:text="Battery Type : "
 			android:textSize="15sp" />
 
@@ -268,7 +242,8 @@
 		android:layout_width="wrap_content"
 		android:layout_height="0dp"
 		android:layout_weight="1"
-		android:gravity="center">
+		android:gravity="center"
+		android:visibility="gone">
 
 		<Switch
 			android:id="@+id/switch_force_power_on_charging"

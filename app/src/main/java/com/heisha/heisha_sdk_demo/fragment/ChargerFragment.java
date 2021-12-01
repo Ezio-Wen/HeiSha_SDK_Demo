@@ -2,6 +2,7 @@ package com.heisha.heisha_sdk_demo.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,6 @@ public class ChargerFragment extends Fragment {
 	private static final String ARG_BATTERY_TEMPERATURE = "battery_temperature";
 	private static final String ARG_BATTERY_PERCENTAGE = "battery_percentage";
 	private static final String ARG_CHARGING_DURATION = "charging_duration";
-	private static final String ARG_CHARGING_REMAINING = "charging_remaining";
 	private static final String ARG_BATTERY_TYPE = "battery_type";
 	private static final String ARG_CHARGING_POWER_ON = "charging_power_on";
 	private static final String ARG_POST_RATE = "post_rate";
@@ -69,7 +69,6 @@ public class ChargerFragment extends Fragment {
 	private String valueBatteryTemperature;
 	private String valueBatteryPercentage;
 	private String valueChargingDuration;
-	private String valueChargingRemaining;
 	private int valueBatteryType;
 	private boolean valueChargingPowerOn;
 	private String valuePostRate;
@@ -83,7 +82,6 @@ public class ChargerFragment extends Fragment {
 	private TextView txtBatteryTemperature;
 	private TextView txtBatteryPercentage;
 	private TextView txtChargingDuration;
-	private TextView txtChargingRemaining;
 
 	private EditText editPostRate;
 
@@ -134,7 +132,6 @@ public class ChargerFragment extends Fragment {
 			valueBatteryTemperature = getArguments().getString(ARG_BATTERY_TEMPERATURE);
 			valueBatteryPercentage = getArguments().getString(ARG_BATTERY_PERCENTAGE);
 			valueChargingDuration = getArguments().getString(ARG_CHARGING_DURATION);
-			valueChargingRemaining = getArguments().getString(ARG_CHARGING_REMAINING);
 			valueBatteryType = getArguments().getInt(ARG_BATTERY_TYPE);
 			valueChargingPowerOn = getArguments().getBoolean(ARG_CHARGING_POWER_ON);
 			valuePostRate = getArguments().getString(ARG_POST_RATE);
@@ -154,7 +151,6 @@ public class ChargerFragment extends Fragment {
 		args.putString(ARG_BATTERY_TEMPERATURE, txtBatteryTemperature.getText().toString());
 		args.putString(ARG_BATTERY_PERCENTAGE, txtBatteryPercentage.getText().toString());
 		args.putString(ARG_CHARGING_DURATION, txtChargingDuration.getText().toString());
-		args.putString(ARG_CHARGING_REMAINING, txtChargingRemaining.getText().toString());
 		args.putInt(ARG_BATTERY_TYPE, spinnerBatteryType.getSelectedItemPosition());
 		args.putBoolean(ARG_CHARGING_POWER_ON, switchPowerOnCharging.isChecked());
 		args.putString(ARG_POST_RATE, editPostRate.getText().toString());
@@ -205,7 +201,6 @@ public class ChargerFragment extends Fragment {
 		txtBatteryTemperature = view.findViewById(R.id.txt_battery_temperature);
 		txtBatteryPercentage = view.findViewById(R.id.txt_battery_percentage);
 		txtChargingDuration = view.findViewById(R.id.txt_charging_duration);
-		txtChargingRemaining = view.findViewById(R.id.txt_charging_remaining_time);
 
 		spinnerBatteryType = view.findViewById(R.id.spinner_battery_type);
 
@@ -231,7 +226,6 @@ public class ChargerFragment extends Fragment {
 			txtBatteryTemperature.setText(valueBatteryTemperature);
 			txtBatteryPercentage.setText(valueBatteryPercentage);
 			txtChargingDuration.setText(valueChargingDuration);
-			txtChargingRemaining.setText(valueChargingRemaining);
 
 			spinnerBatteryType.setSelection(valueBatteryType, true);
 
@@ -307,12 +301,12 @@ public class ChargerFragment extends Fragment {
 				txtChargingStatus.setText(chargeState.toString());
 				txtBatteryDetectionStatus.setText(batteryDetectState.toString());
 				txtDroneStatus.setText(droneSwitchState.toString());
-				txtChargingVoltage.setText(String.valueOf(voltage / 100f));
-				txtChargingCurrent.setText(String.valueOf(current / 100f));
-				txtBatteryTemperature.setText(String.valueOf((batteryManager.getTemperature() - 1000) / 10f));
+				txtChargingVoltage.setText(String.valueOf(voltage / 10f));
+				txtChargingCurrent.setText(String.valueOf(current / 10f));
+				float temperature = (batteryManager.getTemperature() - 1000) / 10f;
+				txtBatteryTemperature.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
 				txtBatteryPercentage.setText(String.valueOf(batteryManager.getPercentRemaining()));
-				txtChargingDuration.setText(String.valueOf(charger.getChargeTotalTime()));
-				txtChargingRemaining.setText(String.valueOf(charger.getChargeRemainTime()));
+				txtChargingDuration.setText(String.valueOf(charger.getChargeDuration()));
 			}
 
 			@Override
@@ -328,7 +322,9 @@ public class ChargerFragment extends Fragment {
 							editPostRate.setText(String.valueOf(value));
 							break;
 						case SERVICE_PARAM_BATTERY_TYPE:
-							spinnerBatteryType.setSelection(value, true);
+							if (value < spinnerBatteryType.getCount()) {
+								spinnerBatteryType.setSelection(value, true);
+							}
 							break;
 						case SERVICE_PARAM_FORCE_POWER_ON_CHARGE:
 							switchPowerOnCharging.setChecked(value != 0);

@@ -1,5 +1,7 @@
 package com.heisha.heisha_sdk_demo.Listener;
 
+import com.heisha.heisha_sdk.Component.ConnStatus;
+
 /**
  * TODO
  *
@@ -8,9 +10,9 @@ package com.heisha.heisha_sdk_demo.Listener;
  * @date 2021/11/22 21:47
  */
 public interface ControlCenterListener extends ComponentListener {
-	void onServerConnectionChanged(boolean connectionStatus, int connectionTimes);
+	void onServerConnectionChanged(ConnStatus connectionStatus, int connectionTimes);
 
-	void onDeviceConnectionChanged(boolean connectionStatus, String deviceName);
+	void onDeviceConnectionChanged(ConnStatus connectionStatus, String deviceName);
 
 	void onGetConfigVersionInfo(int version, int paramNum);
 }

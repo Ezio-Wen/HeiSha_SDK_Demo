@@ -55,7 +55,6 @@ import com.heisha.heisha_sdk.Product.DNEST;
 import com.heisha.heisha_sdk_demo.Listener.AirConditionerListener;
 import com.heisha.heisha_sdk_demo.Listener.CanopyListener;
 import com.heisha.heisha_sdk_demo.Listener.ChargerListener;
-import com.heisha.heisha_sdk_demo.Listener.ComponentListener;
 import com.heisha.heisha_sdk_demo.Listener.ControlCenterListener;
 import com.heisha.heisha_sdk_demo.Listener.EdgeListener;
 import com.heisha.heisha_sdk_demo.Listener.PositionBarListener;
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 	private SharedPreferences mPref;
 	private static final String TAG = "MainActivity";
 
-	private DNEST mDNEST;
+	public DNEST mDNEST;
 	public Canopy mCanopy;
 	public PositionBar mPositionBar;
 	public Charger mCharger;
@@ -103,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
 	public boolean isServerConnected = false;
 	public boolean isDeviceConnected = false;
-
-	public String mDeviceName;
 
 	public int reconnectionTimes = 0;
 	private boolean reConnectionFlag = false;
@@ -140,17 +137,18 @@ public class MainActivity extends AppCompatActivity {
 					reconnectionTimes++;
 					reConnectionFlag = false;
 				}
-				mControlCerterListener.onServerConnectionChanged(isServerConnected, reconnectionTimes);
+				mControlCerterListener.onServerConnectionChanged(ConnStatus.CONNECTED, reconnectionTimes);
 				Log.d(TAG, "connectComplete: 连接服务器成功");
-				Toast.makeText(MainActivity.this, "连接服务器成功", Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainActivity.this, "The MQTT server is connected", Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onServerDisconnected(Throwable throwable) {
 				isServerConnected = false;
 				reConnectionFlag = true;
-				mControlCerterListener.onServerConnectionChanged(isServerConnected, reconnectionTimes);
+				mControlCerterListener.onServerConnectionChanged(ConnStatus.DISCONNECTED, reconnectionTimes);
 				Log.d(TAG, "connectionLost: 服务器连接丢失");
+				Toast.makeText(MainActivity.this, "The MQTT server is disonnected", Toast.LENGTH_SHORT).show();
 				throwable.printStackTrace();
 			}
 
@@ -158,23 +156,23 @@ public class MainActivity extends AppCompatActivity {
 			public void onProductConnected(final String deviceName) {
 				Log.d(TAG, "onProductConnected: 设备连接成功");
 				isDeviceConnected = true;
-				mDeviceName = deviceName;
-				mControlCerterListener.onDeviceConnectionChanged(isDeviceConnected, mDeviceName);
-				Toast.makeText(MainActivity.this, "设备连接成功", Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainActivity.this, "The DNEST is connected", Toast.LENGTH_SHORT).show();
 				initDevice(deviceName);
 				initDeviceCallback();
+				mControlCerterListener.onDeviceConnectionChanged(ConnStatus.CONNECTED, deviceName);
 			}
 
 			@Override
 			public void onProductDisconnected() {
 				isDeviceConnected = false;
-				mControlCerterListener.onDeviceConnectionChanged(isDeviceConnected, mDeviceName);
+				mControlCerterListener.onDeviceConnectionChanged(ConnStatus.DISCONNECTED, mDNEST.getDeviceName());
 				Log.d(TAG, "onProductConnected: 设备连接丢失");
+				Toast.makeText(MainActivity.this, "The DNEST is disconnected", Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onComponentChanged(BaseComponent baseComponent, ConnStatus connStatus) {
-				Log.d(TAG, "onComponentChanged: 组件状态改变");
+				Log.d(TAG, "onComponentChanged: " + baseComponent.getClass().getSimpleName() + "组件状态改变");
 			}
 		});
 	}
@@ -356,13 +354,27 @@ public class MainActivity extends AppCompatActivity {
 		mControlCenter.setStateCallback(new ControlCenterStateCallback() {
 			@Override
 			public void onUpdate() {
-
 			}
 
 			@Override
 			public void onThingsPost(ThingLevel thingLevel, int code) {
 				Log.d(TAG, "onThingsPost: " + thingLevel.toString() + " code" + code);
-				Toast.makeText(MainActivity.this, thingLevel.toString() + ",code:" + code, Toast.LENGTH_SHORT).show();
+				switch(code) {
+					case 101:
+						Toast.makeText(MainActivity.this, "One-Click Flight Preparation Failed, Alarm "
+								+ mControlCenter.getThing().getParam().getAlarm(), Toast.LENGTH_SHORT).show();
+						break;
+					case 102:
+						Toast.makeText(MainActivity.this, "One-Click Charging Failed, Alarm "
+								+ mControlCenter.getThing().getParam().getAlarm(), Toast.LENGTH_SHORT).show();
+						break;
+					case 1:
+						Toast.makeText(MainActivity.this, "One-Click Flight Preparation Complete", Toast.LENGTH_SHORT).show();
+						break;
+					case 2:
+						Toast.makeText(MainActivity.this, "One-Click Charging Complete", Toast.LENGTH_SHORT).show();
+						break;
+				}
 			}
 
 			@Override
@@ -383,6 +395,8 @@ public class MainActivity extends AppCompatActivity {
 			public void onGetConfig(ServiceResult result, ConfigParameter paramIndex, int value) {
 				switch(paramIndex) {
 					case SERVICE_PARAM_POST_RATE_CANOPY:
+					case SERVICE_PARAM_STRIP_LIGHT_BRIGHTNESS:
+					case SERVICE_PARAM_CANOPY_DELAY_TIME:
 						if (mCanopyListener != null)
 							mCanopyListener.onGetParam(result, paramIndex, value);
 						break;
@@ -423,6 +437,8 @@ public class MainActivity extends AppCompatActivity {
 			public void onSetConfig(ServiceResult serviceResult, ConfigParameter configParameter, ConfigFailReason configFailReason) {
 				switch(configParameter) {
 					case SERVICE_PARAM_POST_RATE_CANOPY:
+					case SERVICE_PARAM_STRIP_LIGHT_BRIGHTNESS:
+					case SERVICE_PARAM_CANOPY_DELAY_TIME:
 						if (mCanopyListener != null)
 							mCanopyListener.onSetParam(serviceResult, configParameter, configFailReason);
 						break;

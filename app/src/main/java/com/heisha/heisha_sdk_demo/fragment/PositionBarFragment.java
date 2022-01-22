@@ -1,11 +1,6 @@
 package com.heisha.heisha_sdk_demo.fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,18 +10,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.heisha.heisha_sdk.Component.Canopy.Anemograph;
-import com.heisha.heisha_sdk.Component.Canopy.CanopyLocator;
-import com.heisha.heisha_sdk.Component.Canopy.CanopyState;
-import com.heisha.heisha_sdk.Component.Canopy.Thermohygrograph;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.heisha.heisha_sdk.Component.ConnStatus;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigFailReason;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter;
-import com.heisha.heisha_sdk.Component.PositionBar.PositionBar;
 import com.heisha.heisha_sdk.Component.PositionBar.PositionBarState;
 import com.heisha.heisha_sdk.Manager.ServiceCode;
 import com.heisha.heisha_sdk.Manager.ServiceResult;
-import com.heisha.heisha_sdk_demo.Listener.CanopyListener;
 import com.heisha.heisha_sdk_demo.Listener.PositionBarListener;
 import com.heisha.heisha_sdk_demo.MainActivity;
 import com.heisha.heisha_sdk_demo.R;
@@ -40,6 +33,7 @@ import java.util.Arrays;
  */
 public class PositionBarFragment extends Fragment {
 
+	/*
 	private static final String ARG_POSBAR_CONN_STATUS = "posbar_conn";
 	private static final String ARG_POSBAR_STATUS = "posbar_status";
 	private static final String ARG_SWITCH_STATUS = "switch_status";
@@ -57,6 +51,7 @@ public class PositionBarFragment extends Fragment {
 	private String valueVibration;
 	private String valueTilt;
 	private String valuePostRate;
+	*/
 
 	private TextView txtPosbarConnStatus;
 	private TextView txtPosbarStatus;
@@ -90,8 +85,6 @@ public class PositionBarFragment extends Fragment {
 	public static PositionBarFragment newInstance(String param1, String param2) {
 		PositionBarFragment fragment = new PositionBarFragment();
 		Bundle args = new Bundle();
-//		args.putString(ARG_PARAM1, param1);
-//		args.putString(ARG_PARAM2, param2);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -99,6 +92,7 @@ public class PositionBarFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/*
 		if (getArguments() != null) {
 			valuePosbarConn = getArguments().getString(ARG_POSBAR_CONN_STATUS);
 			valuePosbarStatus = getArguments().getString(ARG_POSBAR_STATUS);
@@ -109,11 +103,13 @@ public class PositionBarFragment extends Fragment {
 			valueTilt = getArguments().getString(ARG_TILT);
 			valuePostRate = getArguments().getString(ARG_POST_RATE);
 		}
+		*/
 	}
 
 	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
+		/*
 		Bundle args = new Bundle();
 		args.putString(ARG_POSBAR_CONN_STATUS, txtPosbarConnStatus.getText().toString());
 		args.putString(ARG_POSBAR_STATUS, txtPosbarStatus.getText().toString());
@@ -125,6 +121,7 @@ public class PositionBarFragment extends Fragment {
 		args.putString(ARG_POST_RATE, editPostRate.getText().toString());
 		if (!this.isStateSaved())
 			this.setArguments(args);
+		*/
 	}
 
 	@Override
@@ -159,6 +156,37 @@ public class PositionBarFragment extends Fragment {
 		btnTightenPosbar = view.findViewById(R.id.btn_position_bar_tighten);
 		btnResetPosbar = view.findViewById(R.id.btn_position_bar_reset);
 
+		mContainerActivity = (MainActivity) getActivity();
+
+		if (mContainerActivity.mPositionBar != null) {
+			txtPosbarConnStatus.setText(mContainerActivity.mPositionBar.getConnectionState().toString());
+			txtPosbarStatus.setText(mContainerActivity.mPositionBar.getPositionBarState().toString());
+
+			byte barLimitSwitchStateSet = mContainerActivity.mPositionBar.getBarLimitSwitchStateSet();
+			byte[] switchStatus = {0, 0, 0, 0, 0, 0, 0, 0};
+			for (int i = 0; i < switchStatus.length; i++) {
+				switchStatus[switchStatus.length - 1 - i] = (byte) (barLimitSwitchStateSet >> i & 0x01);
+			}
+			txtSwitchStatus.setText(Arrays.toString(switchStatus));
+
+			byte barLimitSwitchFaultStateSet = mContainerActivity.mPositionBar.getBarLimitSwitchFaultStateSet();
+			for (int i = 0; i < switchStatus.length; i++) {
+				switchStatus[switchStatus.length - 1 - i] = (byte) (barLimitSwitchFaultStateSet >> i & 0x01);
+			}
+			txtSwitchFaultStatus.setText(Arrays.toString(switchStatus));
+
+			byte motorFaultStateSet = mContainerActivity.mPositionBar.getMotorFaultStateSet();
+			byte[] motorFaultStatus = {0, 0, 0, 0};
+			for (int i = 0; i < motorFaultStatus.length; i++) {
+				motorFaultStatus[motorFaultStatus.length - 1 - i] = (byte) (motorFaultStateSet >> i & 0x01);
+			}
+			txtMotorFaultStatus.setText(Arrays.toString(motorFaultStatus));
+
+			txtVibration.setText(String.valueOf(mContainerActivity.mPositionBar.getVibration()));
+			txtTilt.setText(String.valueOf(mContainerActivity.mPositionBar.getTilt()));
+		}
+
+		/*
 		if (getArguments() != null) {
 			txtPosbarConnStatus.setText(valuePosbarConn);
 			txtPosbarStatus.setText(valuePosbarStatus);
@@ -169,6 +197,7 @@ public class PositionBarFragment extends Fragment {
 			txtTilt.setText(valueTilt);
 			editPostRate.setText(valuePostRate);
 		}
+		*/
 
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
@@ -203,38 +232,40 @@ public class PositionBarFragment extends Fragment {
 	}
 
 	private void initListener() {
-		mContainerActivity = (MainActivity) getActivity();
 
 		mContainerActivity.setPositionBarListener(new PositionBarListener() {
 			@Override
 			public void onPost(ConnStatus connStatus, PositionBarState positionBarState) {
-				PositionBar positionBar = mContainerActivity.mPositionBar;
 				txtPosbarConnStatus.setText(connStatus.toString());
 				txtPosbarStatus.setText(positionBarState.toString());
-				byte barLimitSwitchStateSet = positionBar.getBarLimitSwitchStateSet();
+
+				byte barLimitSwitchStateSet = mContainerActivity.mPositionBar.getBarLimitSwitchStateSet();
 				byte[] switchStatus = {0, 0, 0, 0, 0, 0, 0, 0};
 				for (int i = 0; i < switchStatus.length; i++) {
 					switchStatus[switchStatus.length - 1 - i] = (byte) (barLimitSwitchStateSet >> i & 0x01);
 				}
 				txtSwitchStatus.setText(Arrays.toString(switchStatus));
-				byte barLimitSwitchFaultStateSet = positionBar.getBarLimitSwitchFaultStateSet();
+
+				byte barLimitSwitchFaultStateSet = mContainerActivity.mPositionBar.getBarLimitSwitchFaultStateSet();
 				for (int i = 0; i < switchStatus.length; i++) {
 					switchStatus[switchStatus.length - 1 - i] = (byte) (barLimitSwitchFaultStateSet >> i & 0x01);
 				}
 				txtSwitchFaultStatus.setText(Arrays.toString(switchStatus));
-				byte motorFaultStateSet = positionBar.getMotorFaultStateSet();
+
+				byte motorFaultStateSet = mContainerActivity.mPositionBar.getMotorFaultStateSet();
 				byte[] motorFaultStatus = {0, 0, 0, 0};
 				for (int i = 0; i < motorFaultStatus.length; i++) {
 					motorFaultStatus[motorFaultStatus.length - 1 - i] = (byte) (motorFaultStateSet >> i & 0x01);
 				}
 				txtMotorFaultStatus.setText(Arrays.toString(motorFaultStatus));
-				txtVibration.setText(String.valueOf(positionBar.getVibration()));
-				txtTilt.setText(String.valueOf(positionBar.getTilt() / 10f));
+
+				txtVibration.setText(String.valueOf(mContainerActivity.mPositionBar.getVibration()));
+				txtTilt.setText(String.valueOf(mContainerActivity.mPositionBar.getTilt()));
 			}
 
 			@Override
 			public void onOperationResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -248,7 +279,7 @@ public class PositionBarFragment extends Fragment {
 
 			@Override
 			public void onSetParam(ServiceResult serviceResult, ConfigParameter configParameter, ConfigFailReason configFailReason) {
-				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

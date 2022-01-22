@@ -2,16 +2,13 @@ package com.heisha.heisha_sdk_demo.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.heisha.heisha_sdk.Component.Charger.BatteryDetectState;
-import com.heisha.heisha_sdk.Component.Charger.BatteryManager;
+import com.heisha.heisha_sdk.Component.Charger.BatteryPackType;
 import com.heisha.heisha_sdk.Component.Charger.ChargeState;
-import com.heisha.heisha_sdk.Component.Charger.Charger;
 import com.heisha.heisha_sdk.Component.Charger.DroneSwitchState;
 import com.heisha.heisha_sdk.Component.ConnStatus;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigFailReason;
@@ -33,11 +29,7 @@ import com.heisha.heisha_sdk_demo.Listener.ChargerListener;
 import com.heisha.heisha_sdk_demo.MainActivity;
 import com.heisha.heisha_sdk_demo.R;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import static com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter.SERVICE_PARAM_BATTERY_TYPE;
-import static com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter.SERVICE_PARAM_FORCE_POWER_ON_CHARGE;
 import static com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter.SERVICE_PARAM_POST_RATE_CD;
 
 /**
@@ -47,6 +39,7 @@ import static com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter.SERV
  */
 public class ChargerFragment extends Fragment {
 
+	/*
 	private static final String ARG_CHARGER_CONN_STATUS = "charger_conn";
 	private static final String ARG_CHARGING_STATUS = "charging_status";
 	private static final String ARG_BATTERY_DETECTION_STATUS = "battery_detection_status";
@@ -72,6 +65,7 @@ public class ChargerFragment extends Fragment {
 	private int valueBatteryType;
 	private boolean valueChargingPowerOn;
 	private String valuePostRate;
+	*/
 
 	private TextView txtChargerConnStatus;
 	private TextView txtChargingStatus;
@@ -93,8 +87,6 @@ public class ChargerFragment extends Fragment {
 
 	private Spinner spinnerBatteryType;
 
-	private Switch switchPowerOnCharging;
-
 	private MainActivity mContainerActivity;
 
 	public ChargerFragment() {
@@ -113,8 +105,6 @@ public class ChargerFragment extends Fragment {
 	public static ChargerFragment newInstance(String param1, String param2) {
 		ChargerFragment fragment = new ChargerFragment();
 		Bundle args = new Bundle();
-//		args.putString(ARG_PARAM1, param1);
-//		args.putString(ARG_PARAM2, param2);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -122,6 +112,7 @@ public class ChargerFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/*
 		if (getArguments() != null) {
 			valueChargerConn = getArguments().getString(ARG_CHARGER_CONN_STATUS);
 			valueChargingStatus = getArguments().getString(ARG_CHARGING_STATUS);
@@ -136,11 +127,13 @@ public class ChargerFragment extends Fragment {
 			valueChargingPowerOn = getArguments().getBoolean(ARG_CHARGING_POWER_ON);
 			valuePostRate = getArguments().getString(ARG_POST_RATE);
 		}
+		*/
 	}
 
 	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
+		/*
 		Bundle args = new Bundle();
 		args.putString(ARG_CHARGER_CONN_STATUS, txtChargerConnStatus.getText().toString());
 		args.putString(ARG_CHARGING_STATUS, txtChargingStatus.getText().toString());
@@ -156,6 +149,7 @@ public class ChargerFragment extends Fragment {
 		args.putString(ARG_POST_RATE, editPostRate.getText().toString());
 		if (!this.isStateSaved())
 			this.setArguments(args);
+		*/
 	}
 
 	@Override
@@ -171,24 +165,18 @@ public class ChargerFragment extends Fragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		initListener();
-		final int[] requestNum = {3};
-		final Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (requestNum[0] == 3) {
-					requestParam(SERVICE_PARAM_POST_RATE_CD);
-				} else if (requestNum[0] == 2) {
-					requestParam(SERVICE_PARAM_BATTERY_TYPE);
-				} else if (requestNum[0] == 1) {
-					requestParam(SERVICE_PARAM_FORCE_POWER_ON_CHARGE);
-				} else {
-					this.cancel();
-					timer.cancel();
+				requestParam(SERVICE_PARAM_POST_RATE_CD);
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
-				requestNum[0]--;
+				requestParam(SERVICE_PARAM_BATTERY_TYPE);
 			}
-		}, 0, 50);
+		}).start();
 	}
 
 	private void initView(View view) {
@@ -204,8 +192,6 @@ public class ChargerFragment extends Fragment {
 
 		spinnerBatteryType = view.findViewById(R.id.spinner_battery_type);
 
-		switchPowerOnCharging = view.findViewById(R.id.switch_force_power_on_charging);
-
 		editPostRate = view.findViewById(R.id.edit_charger_post_rate);
 
 		btnSetPostRate = view.findViewById(R.id.btn_charger_post_rate_set);
@@ -216,6 +202,22 @@ public class ChargerFragment extends Fragment {
 
 		spinnerBatteryType.setSelection(0, true);
 
+		mContainerActivity = (MainActivity) getActivity();
+
+		if (mContainerActivity.mCharger != null) {
+			txtChargerConnStatus.setText(mContainerActivity.mCharger.getConnectionStatus().toString());
+			txtChargingStatus.setText(mContainerActivity.mCharger.getChargingStatus().toString());
+			txtBatteryDetectionStatus.setText(mContainerActivity.mCharger.getBatteryManager().getBatteryDetectStatus().toString());
+			txtDroneStatus.setText(mContainerActivity.mCharger.getDroneSwitch().getDroneStatus().toString());
+			txtChargingVoltage.setText(String.valueOf(mContainerActivity.mCharger.getChargingVoltage()));
+			txtChargingCurrent.setText(String.valueOf(mContainerActivity.mCharger.getChargingCurrent()));
+			float temperature = mContainerActivity.mCharger.getBatteryManager().getBatteryTemperature();
+			txtBatteryTemperature.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
+			txtBatteryPercentage.setText(String.valueOf(mContainerActivity.mCharger.getBatteryManager().getPercentRemaining()));
+			txtChargingDuration.setText(String.valueOf(mContainerActivity.mCharger.getChargingDuration()));
+		}
+
+		/*
 		if (getArguments() != null) {
 			txtChargerConnStatus.setText(valueChargerConn);
 			txtChargingStatus.setText(valueChargingStatus);
@@ -233,6 +235,7 @@ public class ChargerFragment extends Fragment {
 
 			editPostRate.setText(valuePostRate);
 		}
+		*/
 
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
@@ -272,46 +275,38 @@ public class ChargerFragment extends Fragment {
 		spinnerBatteryType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				setParam(SERVICE_PARAM_BATTERY_TYPE, position);
+				if (position > 0) {
+					setParam(SERVICE_PARAM_BATTERY_TYPE, position - 1);
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 			}
 		});
-		switchPowerOnCharging.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				setParam(SERVICE_PARAM_FORCE_POWER_ON_CHARGE, (isChecked ? 1 : 0));
-			}
-		});
 	}
 
 	private void initListener() {
-		mContainerActivity = (MainActivity) getActivity();
 
 		mContainerActivity.setChargerListener(new ChargerListener() {
 
 			@Override
 			public void onPost(ConnStatus connStatus, ChargeState chargeState, BatteryDetectState batteryDetectState, DroneSwitchState droneSwitchState, int voltage, int current) {
-				Charger charger = mContainerActivity.mCharger;
-				BatteryManager batteryManager = charger.getBatteryManager();
-
 				txtChargerConnStatus.setText(connStatus.toString());
 				txtChargingStatus.setText(chargeState.toString());
 				txtBatteryDetectionStatus.setText(batteryDetectState.toString());
 				txtDroneStatus.setText(droneSwitchState.toString());
 				txtChargingVoltage.setText(String.valueOf(voltage / 10f));
 				txtChargingCurrent.setText(String.valueOf(current / 10f));
-				float temperature = (batteryManager.getTemperature() - 1000) / 10f;
+				float temperature = mContainerActivity.mCharger.getBatteryManager().getBatteryTemperature();
 				txtBatteryTemperature.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
-				txtBatteryPercentage.setText(String.valueOf(batteryManager.getPercentRemaining()));
-				txtChargingDuration.setText(String.valueOf(charger.getChargeDuration()));
+				txtBatteryPercentage.setText(String.valueOf(mContainerActivity.mCharger.getBatteryManager().getPercentRemaining()));
+				txtChargingDuration.setText(String.valueOf(mContainerActivity.mCharger.getChargingDuration()));
 			}
 
 			@Override
 			public void onOperationResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -322,12 +317,10 @@ public class ChargerFragment extends Fragment {
 							editPostRate.setText(String.valueOf(value));
 							break;
 						case SERVICE_PARAM_BATTERY_TYPE:
-							if (value < spinnerBatteryType.getCount()) {
-								spinnerBatteryType.setSelection(value, true);
+							BatteryPackType batteryPackType = BatteryPackType.values()[value];
+							if (value < spinnerBatteryType.getCount() - 1) {
+								spinnerBatteryType.setSelection(batteryPackType.ordinal() + 1, false);
 							}
-							break;
-						case SERVICE_PARAM_FORCE_POWER_ON_CHARGE:
-							switchPowerOnCharging.setChecked(value != 0);
 							break;
 					}
 				}
@@ -335,7 +328,7 @@ public class ChargerFragment extends Fragment {
 
 			@Override
 			public void onSetParam(ServiceResult serviceResult, ConfigParameter configParameter, ConfigFailReason configFailReason) {
-				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

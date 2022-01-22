@@ -8,7 +8,7 @@
 	tools:context=".fragment.EdgeFragment">
 
 	<LinearLayout
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="1"
 		android:gravity="center">
@@ -16,35 +16,25 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Android Switch Status : "
-			android:textSize="15sp" />
+			android:text="Android Switch Status : " />
 
 		<TextView
 			android:id="@+id/txt_android_switch_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
+			android:layout_marginEnd="20dp"
+			android:text="Unknown" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="NVIDIA Switch Status : "
-			android:textSize="15sp" />
+			android:text="NVIDIA Switch Status : " />
 
 		<TextView
 			android:id="@+id/txt_nvidia_switch_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -56,15 +46,31 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="GPS Connection Status : "
-			android:textSize="15sp" />
+			android:text="AliCloud Connection Status : " />
+
+		<TextView
+			android:id="@+id/txt_ali_conn_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Unknown" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="GPS Connection Status : " />
 
 		<TextView
 			android:id="@+id/txt_gps_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -76,15 +82,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="GPS Locate Mode : "
-			android:textSize="15sp" />
+			android:text="GPS Locate Mode : " />
 
 		<TextView
 			android:id="@+id/txt_gps_locate_mode"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -96,15 +100,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Location : "
-			android:textSize="15sp" />
+			android:text="Location : " />
 
 		<TextView
 			android:id="@+id/txt_location"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -116,15 +118,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Hygrothermograph Connection Status : "
-			android:textSize="15sp" />
+			android:text="Meteorological Station Connection Status : " />
 
 		<TextView
-			android:id="@+id/txt_hygrothermograph_conn_status"
+			android:id="@+id/txt_meteo_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -136,21 +136,35 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Temperature : "
-			android:textSize="15sp" />
+			android:text="Temperature : " />
 
 		<TextView
-			android:id="@+id/txt_temperature"
+			android:id="@+id/txt_meteo_temperature"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0.0"
-			android:textSize="15sp" />
+			android:text="0.0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" °C"
-			android:textSize="15sp" />
+			android:layout_marginEnd="20dp"
+			android:text=" °C" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Humidity : " />
+
+		<TextView
+			android:id="@+id/txt_meteo_humidity"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0.0" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" %" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -162,21 +176,36 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Humidity : "
-			android:textSize="15sp" />
+			android:text="Wind Speed : " />
 
 		<TextView
-			android:id="@+id/txt_humidity"
+			android:id="@+id/txt_wind_speed"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0.0"
-			android:textSize="15sp" />
+			android:text="0.0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" %"
-			android:textSize="15sp" />
+			android:layout_marginEnd="20dp"
+			android:text=" m/s" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Rainfall : " />
+
+		<TextView
+			android:id="@+id/txt_rainfall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0.0" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="20dp"
+			android:text=" mm" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -188,22 +217,19 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Edge Post Rate : "
-			android:textSize="15sp" />
+			android:text="Edge Post Rate : " />
 
 		<EditText
 			android:id="@+id/edit_edge_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" s "
-			android:textSize="15sp" />
+			android:text=" s " />
 
 		<Button
 			android:id="@+id/btn_edge_post_rate_set"
@@ -211,29 +237,6 @@
 			android:layout_height="wrap_content"
 			android:text="Set" />
 
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_gravity="center_horizontal"
-		android:layout_weight="1"
-		android:gravity="center"
-		android:visibility="gone">
-
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="Turn on the RC"
-			android:textAllCaps="true" />
-
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="Turn off the RC"
-			android:textAllCaps="true" />
 	</LinearLayout>
 
 	<LinearLayout

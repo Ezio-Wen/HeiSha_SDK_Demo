@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigFailReason;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter;
 import com.heisha.heisha_sdk.Component.EdgeComputing.GPSLocator;
-import com.heisha.heisha_sdk.Component.EdgeComputing.Hygrothermograph;
 import com.heisha.heisha_sdk.Component.EdgeComputing.PowerState;
 import com.heisha.heisha_sdk.Manager.ServiceCode;
 import com.heisha.heisha_sdk.Manager.ServiceResult;
@@ -32,6 +31,7 @@ import com.heisha.heisha_sdk_demo.R;
  */
 public class EdgeFragment extends Fragment {
 
+	/*
 	private static final String ARG_ANDROID_SWITCH = "android_switch";
 	private static final String ARG_NVIDIA_SWITCH = "nvidia_switch";
 	private static final String ARG_GPS_CONN_STATUS = "gps_conn";
@@ -51,21 +51,23 @@ public class EdgeFragment extends Fragment {
 	private String valueTemperature;
 	private String valueHumidity;
 	private String valuePostRate;
+	*/
 
 	private TextView txtAndroidSwitch;
 	private TextView txtNVIDIASwitch;
+	private TextView txtAliCloudConn;
 	private TextView txtGPSConn;
 	private TextView txtGPSLocateMode;
 	private TextView txtLocation;
-	private TextView txtHygrothermographConn;
+	private TextView txtMeteorologicalStationConn;
 	private TextView txtTemperature;
 	private TextView txtHumidity;
+	private TextView txtWindSpeed;
+	private TextView txtRainfall;
 
 	private EditText editPostRate;
 
 	private Button btnSetPostRate;
-	//	private Button btnTurnOnRC;
-//	private Button btnTurnOffRC;
 	private Button btnTurnOnAndroid;
 	private Button btnTurnOffAndroid;
 	private Button btnTurnOnNVIDIA;
@@ -89,8 +91,6 @@ public class EdgeFragment extends Fragment {
 	public static EdgeFragment newInstance(String param1, String param2) {
 		EdgeFragment fragment = new EdgeFragment();
 		Bundle args = new Bundle();
-//		args.putString(ARG_PARAM1, param1);
-//		args.putString(ARG_PARAM2, param2);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -98,6 +98,7 @@ public class EdgeFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/*
 		if (getArguments() != null) {
 			valueAndroidSwitch = getArguments().getString(ARG_ANDROID_SWITCH);
 			valueNVIDIASwitch = getArguments().getString(ARG_NVIDIA_SWITCH);
@@ -109,11 +110,13 @@ public class EdgeFragment extends Fragment {
 			valueHumidity = getArguments().getString(ARG_HUMIDITY);
 			valuePostRate = getArguments().getString(ARG_POST_RATE);
 		}
+		*/
 	}
 
 	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
+		/*
 		Bundle args = new Bundle();
 		args.putString(ARG_ANDROID_SWITCH, txtAndroidSwitch.getText().toString());
 		args.putString(ARG_NVIDIA_SWITCH, txtNVIDIASwitch.getText().toString());
@@ -126,6 +129,7 @@ public class EdgeFragment extends Fragment {
 		args.putString(ARG_POST_RATE, editPostRate.getText().toString());
 		if (!this.isStateSaved())
 			this.setArguments(args);
+		*/
 	}
 
 	@Override
@@ -147,23 +151,57 @@ public class EdgeFragment extends Fragment {
 	private void initView(View view) {
 		txtAndroidSwitch = view.findViewById(R.id.txt_android_switch_status);
 		txtNVIDIASwitch = view.findViewById(R.id.txt_nvidia_switch_status);
+		txtAliCloudConn = view.findViewById(R.id.txt_ali_conn_status);
 		txtGPSConn = view.findViewById(R.id.txt_gps_conn_status);
 		txtGPSLocateMode = view.findViewById(R.id.txt_gps_locate_mode);
 		txtLocation = view.findViewById(R.id.txt_location);
-		txtHygrothermographConn = view.findViewById(R.id.txt_hygrothermograph_conn_status);
-		txtTemperature = view.findViewById(R.id.txt_temperature);
-		txtHumidity = view.findViewById(R.id.txt_humidity);
+		txtMeteorologicalStationConn = view.findViewById(R.id.txt_meteo_conn_status);
+		txtTemperature = view.findViewById(R.id.txt_meteo_temperature);
+		txtHumidity = view.findViewById(R.id.txt_meteo_humidity);
+		txtWindSpeed = view.findViewById(R.id.txt_wind_speed);
+		txtRainfall = view.findViewById(R.id.txt_rainfall);
 
 		editPostRate = view.findViewById(R.id.edit_edge_post_rate);
 
 		btnSetPostRate = view.findViewById(R.id.btn_edge_post_rate_set);
-//		btnTurnOnRC = view.findViewById(R.id.btn_rc_turn_on);
-//		btnTurnOffRC = view.findViewById(R.id.btn_rc_turn_off);
 		btnTurnOnAndroid = view.findViewById(R.id.btn_android_turn_on);
 		btnTurnOffAndroid = view.findViewById(R.id.btn_android_turn_off);
 		btnTurnOnNVIDIA = view.findViewById(R.id.btn_nvidia_turn_on);
 		btnTurnOffNVIDIA = view.findViewById(R.id.btn_nvidia_turn_off);
 
+		mContainerActivity = (MainActivity) getActivity();
+
+		if (mContainerActivity.mEdgeComputing != null) {
+			GPSLocator gpsLocator = mContainerActivity.mEdgeComputing.getGPSLocator();
+			txtAndroidSwitch.setText(mContainerActivity.mEdgeComputing.getPowerSupplyController().getAndroidPowerState().toString());
+			txtNVIDIASwitch.setText(mContainerActivity.mEdgeComputing.getPowerSupplyController().getNVIDIAPowerState().toString());
+			txtAliCloudConn.setText(mContainerActivity.mEdgeComputing.getAliCloudConnStatus().toString());
+			txtGPSConn.setText(gpsLocator.getConnStatus().toString());
+			switch(gpsLocator.getLocateMode()) {
+				case 0:
+					txtGPSLocateMode.setText("Not Positioned");
+					break;
+				case 1:
+					txtGPSLocateMode.setText("SPS");
+					break;
+				case 2:
+					txtGPSLocateMode.setText("Differential");
+					break;
+				case 3:
+					txtGPSLocateMode.setText("PPS");
+					break;
+			}
+			txtLocation.setText(gpsLocator.getLongitude() / 10000000f + (gpsLocator.getEastOrWest() == 0 ? "E, " : "W, ")
+					+ gpsLocator.getLatitude() / 10000000f + (gpsLocator.getSouthOrNorth() == 0 ? "N" : "S"));
+			txtMeteorologicalStationConn.setText(mContainerActivity.mEdgeComputing.getMeteorologicalStation().getConnStatus().toString());
+			float temperature = mContainerActivity.mEdgeComputing.getMeteorologicalStation().getHygrothermograph().getTemperature();
+			txtTemperature.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
+			txtHumidity.setText(String.valueOf(mContainerActivity.mEdgeComputing.getMeteorologicalStation().getHygrothermograph().getHumidity()));
+			txtWindSpeed.setText(String.valueOf(mContainerActivity.mEdgeComputing.getMeteorologicalStation().getAnemograph().getWindSpeed()));
+			txtRainfall.setText(String.valueOf(mContainerActivity.mEdgeComputing.getMeteorologicalStation().getRainGauge().getRainfall()));
+		}
+
+		/*
 		if (getArguments() != null) {
 			txtAndroidSwitch.setText(valueAndroidSwitch);
 			txtNVIDIASwitch.setText(valueNVIDIASwitch);
@@ -175,6 +213,7 @@ public class EdgeFragment extends Fragment {
 			txtHumidity.setText(valueHumidity);
 			editPostRate.setText(valuePostRate);
 		}
+		*/
 
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
@@ -188,10 +227,6 @@ public class EdgeFragment extends Fragment {
 							}
 							setParam(ConfigParameter.SERVICE_PARAM_POST_RATE_EDGE, Integer.parseInt(editPostRate.getText().toString()));
 							break;
-//						case R.id.btn_rc_turn_on:
-//							break;
-//						case R.id.btn_rc_turn_off:
-//							break;
 						case R.id.btn_android_turn_on:
 							mContainerActivity.mEdgeComputing.androidTurnOn();
 							break;
@@ -210,8 +245,6 @@ public class EdgeFragment extends Fragment {
 		};
 
 		btnSetPostRate.setOnClickListener(listener);
-//		btnTurnOnRC.setOnClickListener(listener);
-//		btnTurnOffRC.setOnClickListener(listener);
 		btnTurnOnAndroid.setOnClickListener(listener);
 		btnTurnOffAndroid.setOnClickListener(listener);
 		btnTurnOnNVIDIA.setOnClickListener(listener);
@@ -225,12 +258,11 @@ public class EdgeFragment extends Fragment {
 			@Override
 			public void onPost(PowerState androidPowerState, PowerState NVIDIAPowerState) {
 				GPSLocator gpsLocator = mContainerActivity.mEdgeComputing.getGPSLocator();
-				Hygrothermograph hygrothermograph = mContainerActivity.mEdgeComputing.getHygrothermograph();
 				txtAndroidSwitch.setText(androidPowerState.toString());
 				txtNVIDIASwitch.setText(NVIDIAPowerState.toString());
-				txtGPSConn.setText(gpsLocator.getGPSConnState().toString());
-				int locateMode = gpsLocator.getLocateMode();
-				switch(locateMode) {
+				txtAliCloudConn.setText(mContainerActivity.mEdgeComputing.getAliCloudConnStatus().toString());
+				txtGPSConn.setText(gpsLocator.getConnStatus().toString());
+				switch(gpsLocator.getLocateMode()) {
 					case 0:
 						txtGPSLocateMode.setText("Not Positioned");
 						break;
@@ -246,15 +278,17 @@ public class EdgeFragment extends Fragment {
 				}
 				txtLocation.setText(gpsLocator.getLongitude() / 10000000f + (gpsLocator.getEastOrWest() == 0 ? "E, " : "W, ")
 						+ gpsLocator.getLatitude() / 10000000f + (gpsLocator.getSouthOrNorth() == 0 ? "N" : "S"));
-				txtHygrothermographConn.setText(hygrothermograph.getHygrothermographConnState().toString());
-				float temperature = (hygrothermograph.getTemperature() - 1000) / 10f;
+				txtMeteorologicalStationConn.setText(mContainerActivity.mEdgeComputing.getMeteorologicalStation().getConnStatus().toString());
+				float temperature = mContainerActivity.mEdgeComputing.getMeteorologicalStation().getHygrothermograph().getTemperature();
 				txtTemperature.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
-				txtHumidity.setText(String.valueOf(hygrothermograph.getHumidity() / 10f));
+				txtHumidity.setText(String.valueOf(mContainerActivity.mEdgeComputing.getMeteorologicalStation().getHygrothermograph().getHumidity()));
+				txtWindSpeed.setText(String.valueOf(mContainerActivity.mEdgeComputing.getMeteorologicalStation().getAnemograph().getWindSpeed()));
+				txtRainfall.setText(String.valueOf(mContainerActivity.mEdgeComputing.getMeteorologicalStation().getRainGauge().getRainfall()));
 			}
 
 			@Override
 			public void onOperationResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -268,7 +302,7 @@ public class EdgeFragment extends Fragment {
 
 			@Override
 			public void onSetParam(ServiceResult serviceResult, ConfigParameter configParameter, ConfigFailReason configFailReason) {
-				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

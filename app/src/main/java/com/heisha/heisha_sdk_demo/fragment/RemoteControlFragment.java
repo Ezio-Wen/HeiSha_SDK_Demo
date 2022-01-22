@@ -1,11 +1,6 @@
 package com.heisha.heisha_sdk_demo.fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +10,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.heisha.heisha_sdk.Component.ConnStatus;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigFailReason;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter;
-import com.heisha.heisha_sdk.Component.EdgeComputing.GPSLocator;
-import com.heisha.heisha_sdk.Component.EdgeComputing.Hygrothermograph;
-import com.heisha.heisha_sdk.Component.EdgeComputing.PowerState;
 import com.heisha.heisha_sdk.Manager.ServiceCode;
 import com.heisha.heisha_sdk.Manager.ServiceResult;
-import com.heisha.heisha_sdk_demo.Listener.EdgeListener;
 import com.heisha.heisha_sdk_demo.Listener.RemoteControlListener;
 import com.heisha.heisha_sdk_demo.MainActivity;
 import com.heisha.heisha_sdk_demo.R;
@@ -35,6 +30,7 @@ import com.heisha.heisha_sdk_demo.R;
  */
 public class RemoteControlFragment extends Fragment {
 
+	/*
 	private static final String ARG_RC_CONN_STATUS = "rc_conn";
 	private static final String ARG_RC_POWER_STATUS = "rc_power_status";
 	private static final String ARG_RC_USB_STATUS = "rc_usb_status";
@@ -48,6 +44,7 @@ public class RemoteControlFragment extends Fragment {
 	private String valueTemperature;
 	private String valueHumidity;
 	private String valuePostRate;
+	*/
 
 	private TextView txtRCConnStatus;
 	private TextView txtRCPowerStatus;
@@ -89,6 +86,7 @@ public class RemoteControlFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/*
 		if (getArguments() != null) {
 			valueRCConn = getArguments().getString(ARG_RC_CONN_STATUS);
 			valueRCPowerStatus = getArguments().getString(ARG_RC_POWER_STATUS);
@@ -97,11 +95,13 @@ public class RemoteControlFragment extends Fragment {
 			valueHumidity = getArguments().getString(ARG_HUMIDITY);
 			valuePostRate = getArguments().getString(ARG_POST_RATE);
 		}
+		*/
 	}
 
 	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
+		/*
 		Bundle args = new Bundle();
 		args.putString(ARG_RC_CONN_STATUS, txtRCConnStatus.getText().toString());
 		args.putString(ARG_RC_POWER_STATUS, txtRCPowerStatus.getText().toString());
@@ -111,6 +111,7 @@ public class RemoteControlFragment extends Fragment {
 		args.putString(ARG_POST_RATE, editPostRate.getText().toString());
 		if (!this.isStateSaved())
 			this.setArguments(args);
+		*/
 	}
 
 	@Override
@@ -144,6 +145,18 @@ public class RemoteControlFragment extends Fragment {
 		btnPlugInUSB = view.findViewById(R.id.btn_rc_usb_plug_in);
 		btnPullOutUSB = view.findViewById(R.id.btn_rc_usb_pull_out);
 
+		mContainerActivity = (MainActivity) getActivity();
+
+		if (mContainerActivity.mRemoteControl != null) {
+			txtRCConnStatus.setText(mContainerActivity.mRemoteControl.getConnectionStatus().toString());
+			txtRCPowerStatus.setText(mContainerActivity.mRemoteControl.getRCPowerState().toString());
+			txtRCUSBStatus.setText(mContainerActivity.mRemoteControl.getRCUSBCableStatus() == 1 ? "Plug In" : "Pull Out");
+			float temperature = mContainerActivity.mRemoteControl.getHygrothermograph().getTemperature();
+			txtTemperature.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
+			txtHumidity.setText(String.valueOf(mContainerActivity.mRemoteControl.getHygrothermograph().getHumidity()));
+		}
+
+		/*
 		if (getArguments() != null) {
 			txtRCConnStatus.setText(valueRCConn);
 			txtRCPowerStatus.setText(valueRCPowerStatus);
@@ -152,6 +165,7 @@ public class RemoteControlFragment extends Fragment {
 			txtHumidity.setText(valueHumidity);
 			editPostRate.setText(valuePostRate);
 		}
+		*/
 
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
@@ -194,23 +208,21 @@ public class RemoteControlFragment extends Fragment {
 	}
 
 	private void initListener() {
-		mContainerActivity = (MainActivity) getActivity();
 
 		mContainerActivity.setRemoteControlListener(new RemoteControlListener() {
 			@Override
 			public void onPost(ConnStatus connStatus) {
-				Hygrothermograph hygrothermograph = mContainerActivity.mRemoteControl.getHygrothermograph();
 				txtRCConnStatus.setText(connStatus.toString());
 				txtRCPowerStatus.setText(mContainerActivity.mRemoteControl.getRCPowerState().toString());
 				txtRCUSBStatus.setText(mContainerActivity.mRemoteControl.getRCUSBCableStatus() == 1 ? "Plug In" : "Pull Out");
-				float temperature = (hygrothermograph.getTemperature() - 1000) / 10f;
+				float temperature = mContainerActivity.mRemoteControl.getHygrothermograph().getTemperature();
 				txtTemperature.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
-				txtHumidity.setText(String.valueOf(hygrothermograph.getHumidity() / 10f));
+				txtHumidity.setText(String.valueOf(mContainerActivity.mRemoteControl.getHygrothermograph().getHumidity()));
 			}
 
 			@Override
 			public void onOperationResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -224,7 +236,7 @@ public class RemoteControlFragment extends Fragment {
 
 			@Override
 			public void onSetParam(ServiceResult serviceResult, ConfigParameter configParameter, ConfigFailReason configFailReason) {
-				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

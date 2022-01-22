@@ -16,15 +16,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Connection Status : "
-			android:textSize="15sp" />
+			android:text="Canopy Connection Status : " />
 
 		<TextView
 			android:id="@+id/txt_canopy_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -36,15 +34,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Status : "
-			android:textSize="15sp" />
+			android:text="Canopy Status : " />
 
 		<TextView
 			android:id="@+id/txt_canopy_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -56,15 +52,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Open Switch Status : "
-			android:textSize="15sp" />
+			android:text="Canopy Open Switch Status : " />
 
 		<TextView
 			android:id="@+id/txt_canopy_open_switch_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -76,15 +70,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Canopy Close Switch Status : "
-			android:textSize="15sp" />
+			android:text="Canopy Close Switch Status : " />
 
 		<TextView
 			android:id="@+id/txt_canopy_close_switch_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -96,15 +88,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Anemograph Connection Status : "
-			android:textSize="15sp" />
+			android:text="Hygrothermograph Connection Status : " />
 
 		<TextView
-			android:id="@+id/txt_anemograph_conn_status"
+			android:id="@+id/txt_canopy_hygrothermograph_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -116,15 +106,29 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Thermohygrograph1 Connection Status : "
-			android:textSize="15sp" />
+			android:text="Hygrothermograph Info : " />
 
 		<TextView
-			android:id="@+id/txt_thermohygrograph_1_conn_status"
+			android:id="@+id/txt_canopy_temp"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="0" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="°C, " />
+
+		<TextView
+			android:id="@+id/txt_canopy_hum"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="0" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="%" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -136,189 +140,84 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Thermohygrograph2 Connection Status : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_thermohygrograph_2_conn_status"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="CanopyLocator Connection Status : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_canopy_locator_conn_status"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Canopy Location : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_canopy_location"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Thermohygrograph1 Info : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_tem1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="°C, "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_hum1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="%"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Thermohygrograph2 Info : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_tem2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="°C, "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_hum2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="%"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Wind Speed : "
-			android:textSize="15sp" />
-
-		<TextView
-			android:id="@+id/txt_wind_speed"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text=" m/s"
-			android:textSize="15sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:gravity="center">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Canopy Post Rate : "
-			android:textSize="15sp" />
+			android:text="Canopy Post Rate : " />
 
 		<EditText
 			android:id="@+id/edit_canopy_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" s "
-			android:textSize="15sp" />
+			android:text=" s " />
 
 		<Button
 			android:id="@+id/btn_canopy_post_rate_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Set" />
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Strip Light Brightness : " />
+
+		<EditText
+			android:id="@+id/edit_strip_light_brightness"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:inputType="numberDecimal"
+			android:text="0" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" % " />
+
+		<Button
+			android:id="@+id/btn_strip_light_brightness_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Set" />
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Canopy Delay Time : " />
+
+		<EditText
+			android:id="@+id/edit_canopy_delay_time"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:inputType="numberDecimal"
+			android:text="0" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text=" ms " />
+
+		<Button
+			android:id="@+id/btn_canopy_delay_time_set"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Set" />

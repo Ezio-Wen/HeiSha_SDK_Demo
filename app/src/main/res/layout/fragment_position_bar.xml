@@ -16,15 +16,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Position Bar Connection Status : "
-			android:textSize="15sp" />
+			android:text="Position Bar Connection Status : " />
 
 		<TextView
 			android:id="@+id/txt_position_bar_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -36,15 +34,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Position Bar Status : "
-			android:textSize="15sp" />
+			android:text="Position Bar Status : " />
 
 		<TextView
 			android:id="@+id/txt_position_bar_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -56,15 +52,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Limit Switch Status : "
-			android:textSize="15sp" />
+			android:text="Limit Switch Status : " />
 
 		<TextView
 			android:id="@+id/txt_limit_switch_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -76,15 +70,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Limit Switch Fault Status : "
-			android:textSize="15sp" />
+			android:text="Limit Switch Fault Status : " />
 
 		<TextView
 			android:id="@+id/txt_limit_switch_fault_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -96,15 +88,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Motor Fault Status : "
-			android:textSize="15sp" />
+			android:text="Motor Fault Status : " />
 
 		<TextView
 			android:id="@+id/txt_motor_fault_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -116,15 +106,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Vibration : "
-			android:textSize="15sp" />
+			android:text="Vibration : " />
 
 		<TextView
 			android:id="@+id/txt_vibration"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -136,21 +124,18 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Tilt : "
-			android:textSize="15sp" />
+			android:text="Tilt : " />
 
 		<TextView
 			android:id="@+id/txt_tilt"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" °"
-			android:textSize="15sp" />
+			android:text=" °" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -162,22 +147,19 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Position Bar Post Rate : "
-			android:textSize="15sp" />
+			android:text="Position Bar Post Rate : " />
 
 		<EditText
 			android:id="@+id/edit_position_bar_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" s "
-			android:textSize="15sp" />
+			android:text=" s " />
 
 		<Button
 			android:id="@+id/btn_position_bar_post_rate_set"
@@ -198,7 +180,6 @@
 			android:id="@+id/btn_position_bar_release"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
 			android:text="release the position bar"
 			android:textAllCaps="true" />
 
@@ -206,7 +187,6 @@
 			android:id="@+id/btn_position_bar_tighten"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
 			android:text="tighten the position bar"
 			android:textAllCaps="true" />
 
@@ -214,7 +194,6 @@
 			android:id="@+id/btn_position_bar_reset"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
 			android:text="reset the position bar"
 			android:textAllCaps="true" />
 	</LinearLayout>

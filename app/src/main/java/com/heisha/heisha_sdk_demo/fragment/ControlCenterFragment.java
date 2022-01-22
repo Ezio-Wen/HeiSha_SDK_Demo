@@ -1,18 +1,15 @@
 package com.heisha.heisha_sdk_demo.fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.heisha.heisha_sdk.Component.ConnStatus;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigFailReason;
@@ -40,6 +37,8 @@ public class ControlCenterFragment extends Fragment {
 
 	private Button btnSystemReset;
 	private Button btnDisconnect;
+	private Button btnOneClickFlightPreparation;
+	private Button btnOneClickCharging;
 
 	private MainActivity mContainerActivity;
 
@@ -100,6 +99,8 @@ public class ControlCenterFragment extends Fragment {
 
 		btnSystemReset = view.findViewById(R.id.btn_system_reset);
 		btnDisconnect = view.findViewById(R.id.btn_disconnect);
+		btnOneClickFlightPreparation = view.findViewById(R.id.btn_one_click_flight_preparation);
+		btnOneClickCharging = view.findViewById(R.id.btn_one_click_charging);
 
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
@@ -111,6 +112,12 @@ public class ControlCenterFragment extends Fragment {
 							break;
 						case R.id.btn_disconnect:
 							break;
+						case R.id.btn_one_click_flight_preparation:
+							mContainerActivity.mControlCenter.OneClickFlightPreparation();
+							break;
+						case R.id.btn_one_click_charging:
+							mContainerActivity.mControlCenter.OneClickChargingEnforcedly();
+							break;
 					}
 				}
 			}
@@ -118,27 +125,34 @@ public class ControlCenterFragment extends Fragment {
 
 		btnSystemReset.setOnClickListener(listener);
 		btnDisconnect.setOnClickListener(listener);
+		btnOneClickFlightPreparation.setOnClickListener(listener);
+		btnOneClickCharging.setOnClickListener(listener);
 	}
 
 	private void initListener() {
 		mContainerActivity = (MainActivity) getActivity();
 
-		txtServerConnStatus.setText(mContainerActivity.isServerConnected ? ConnStatus.CONNECTED.toString() : ConnStatus.DISCONNECTED.toString());
-		txtDeviceConnStatus.setText(mContainerActivity.isDeviceConnected ? ConnStatus.CONNECTED.toString() : ConnStatus.DISCONNECTED.toString());
-		txtDeviceName.setText(mContainerActivity.mDeviceName);
+		txtServerConnStatus.setText(HSSDKManager.getInstance().getMQTTServerConnectionStatus().toString());
+		txtDeviceConnStatus.setText(HSSDKManager.getInstance().getDeviceConnectionStatus().toString());
+		if (mContainerActivity.mDNEST != null) {
+			txtDeviceName.setText(mContainerActivity.mDNEST.getDeviceName());
+		}
 		txtReconnTimes.setText(String.valueOf(mContainerActivity.reconnectionTimes));
 
 		mContainerActivity.setControlCerterListener(new ControlCenterListener() {
 			@Override
-			public void onServerConnectionChanged(boolean connectionStatus, int connectionTimes) {
-				txtServerConnStatus.setText(connectionStatus ? ConnStatus.CONNECTED.toString() : ConnStatus.DISCONNECTED.toString());
+			public void onServerConnectionChanged(ConnStatus connectionStatus, int connectionTimes) {
+				txtServerConnStatus.setText(connectionStatus.toString());
 				txtReconnTimes.setText(String.valueOf(connectionTimes));
 			}
 
 			@Override
-			public void onDeviceConnectionChanged(boolean connectionStatus, String deviceName) {
-				txtDeviceConnStatus.setText(connectionStatus ? ConnStatus.CONNECTED.toString() : ConnStatus.DISCONNECTED.toString());
+			public void onDeviceConnectionChanged(ConnStatus connectionStatus, String deviceName) {
+				txtDeviceConnStatus.setText(connectionStatus.toString());
 				txtDeviceName.setText(deviceName);
+				if (connectionStatus == ConnStatus.CONNECTED) {
+					requestParam(ConfigParameter.SERVICE_PARAM_VERSION);
+				}
 			}
 
 			@Override
@@ -149,7 +163,7 @@ public class ControlCenterFragment extends Fragment {
 
 			@Override
 			public void onOperationResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override

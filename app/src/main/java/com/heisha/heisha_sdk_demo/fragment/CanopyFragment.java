@@ -2,7 +2,6 @@ package com.heisha.heisha_sdk_demo.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.heisha.heisha_sdk.Component.Canopy.Anemograph;
-import com.heisha.heisha_sdk.Component.Canopy.CanopyLocator;
 import com.heisha.heisha_sdk.Component.Canopy.CanopyState;
-import com.heisha.heisha_sdk.Component.Canopy.Thermohygrograph;
 import com.heisha.heisha_sdk.Component.ConnStatus;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigFailReason;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter;
+import com.heisha.heisha_sdk.Component.EdgeComputing.Hygrothermograph;
 import com.heisha.heisha_sdk.Manager.ServiceCode;
 import com.heisha.heisha_sdk.Manager.ServiceResult;
 import com.heisha.heisha_sdk_demo.Listener.CanopyListener;
@@ -35,59 +32,49 @@ import com.heisha.heisha_sdk_demo.R;
  */
 public class CanopyFragment extends Fragment {
 
+	/*
 	private static final String ARG_CANOPY_CONN_STATUS = "canopy_conn";
 	private static final String ARG_CANOPY_STATUS = "canopy_status";
 	private static final String ARG_OPEN_STATUS = "open_status";
 	private static final String ARG_CLOSE_STATUS = "close_status";
-	private static final String ARG_ANEMOGRAPH_CONN = "anomograph_conn";
-	private static final String ARG_THERMOHYGROGRAPH_1_CONN = "thermohygrograph_1_conn";
-	private static final String ARG_THERMOHYGROGRAPH_2_CONN = "thermohygrograph_2_conn";
-	private static final String ARG_LOCATOR_CONN = "locator_conn";
-	private static final String ARG_LOCATION = "location";
-	private static final String ARG_TEM_1 = "tem_1";
-	private static final String ARG_HUM_1 = "hum_1";
-	private static final String ARG_TEM_2 = "tem_2";
-	private static final String ARG_HUM_2 = "hum_2";
-	private static final String ARG_WIND_SPEED = "wind_speed";
+	private static final String ARG_HYGROTHERMOGRAPH_CONN = "hygrothermograph_conn";
+	private static final String ARG_TEM = "tem";
+	private static final String ARG_HUM = "hum";
 	private static final String ARG_POST_RATE = "post_rate";
+	private static final String ARG_LIGHT_BRIGHTNESS = "light_brightness";
+	private static final String ARG_DELAY_TIME = "delay_time";
 
 	private String valueCanopyConn;
 	private String valueCanopyStatus;
 	private String valueOpenStatus;
 	private String valueCloseStatus;
-	private String valueAnemographConn;
-	private String valueThermohygrograph1Conn;
-	private String valueThermohygrograph2Conn;
-	private String valueLocatorConn;
-	private String valueLocation;
-	private String valueTem1;
-	private String valueHum1;
-	private String valueTem2;
-	private String valueHum2;
-	private String valueWindSpeed;
+	private String valueHygrothermographConn;
+	private String valueTem;
+	private String valueHum;
 	private String valuePostRate;
+	private String valueLightBrightness;
+	private String valueDelayTime;
+	*/
 
 	private TextView txtCanopyConnStatus;
 	private TextView txtCanopyStatus;
 	private TextView txtCanopyOpenStatus;
 	private TextView txtCanopyCloseStatus;
-	private TextView txtAnemographConnStatus;
-	private TextView txtThermohygrograph1ConnStatus;
-	private TextView txtThermohygrograph2ConnStatus;
-	private TextView txtLocatorConnStatus;
-	private TextView txtCanopyLocation;
-	private TextView txtTem1;
-	private TextView txtHum1;
-	private TextView txtTem2;
-	private TextView txtHum2;
-	private TextView txtWindSpeed;
+	private TextView txtHygrothermographConnStatus;
+	private TextView txtTem;
+	private TextView txtHum;
 
 	private EditText editPostRate;
+	private EditText editLightBrightness;
+	private EditText editDelayTime;
 
 	private Button btnOpenCanopy;
 	private Button btnCloseCanopy;
 	private Button btnResetCanopy;
 	private Button btnSetPostRate;
+	private Button btnSetLightBrightness;
+	private Button btnSetDelayTime;
+
 	private MainActivity mContainerActivity;
 
 	/**
@@ -102,8 +89,6 @@ public class CanopyFragment extends Fragment {
 	public static CanopyFragment newInstance(String param1, String param2) {
 		CanopyFragment fragment = new CanopyFragment();
 		Bundle args = new Bundle();
-//		args.putString(ARG_PARAM1, param1);
-//		args.putString(ARG_PARAM2, param2);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -115,46 +100,40 @@ public class CanopyFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/*
 		if (getArguments() != null) {
 			valueCanopyConn = getArguments().getString(ARG_CANOPY_CONN_STATUS);
 			valueCanopyStatus = getArguments().getString(ARG_CANOPY_STATUS);
 			valueOpenStatus = getArguments().getString(ARG_OPEN_STATUS);
 			valueCloseStatus = getArguments().getString(ARG_CLOSE_STATUS);
-			valueAnemographConn = getArguments().getString(ARG_ANEMOGRAPH_CONN);
-			valueThermohygrograph1Conn = getArguments().getString(ARG_THERMOHYGROGRAPH_1_CONN);
-			valueThermohygrograph2Conn = getArguments().getString(ARG_THERMOHYGROGRAPH_2_CONN);
-			valueLocatorConn = getArguments().getString(ARG_LOCATOR_CONN);
-			valueLocation = getArguments().getString(ARG_LOCATION);
-			valueTem1 = getArguments().getString(ARG_TEM_1);
-			valueHum1 = getArguments().getString(ARG_HUM_1);
-			valueTem2 = getArguments().getString(ARG_TEM_2);
-			valueHum2 = getArguments().getString(ARG_HUM_2);
-			valueWindSpeed = getArguments().getString(ARG_WIND_SPEED);
+			valueHygrothermographConn = getArguments().getString(ARG_HYGROTHERMOGRAPH_CONN);
+			valueTem = getArguments().getString(ARG_TEM);
+			valueHum = getArguments().getString(ARG_HUM);
 			valuePostRate = getArguments().getString(ARG_POST_RATE);
+			valueLightBrightness = getArguments().getString(ARG_LIGHT_BRIGHTNESS);
+			valueDelayTime = getArguments().getString(ARG_DELAY_TIME);
 		}
+		*/
 	}
 
 	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
+		/*
 		Bundle args = new Bundle();
 		args.putString(ARG_CANOPY_CONN_STATUS, txtCanopyConnStatus.getText().toString());
 		args.putString(ARG_CANOPY_STATUS, txtCanopyStatus.getText().toString());
 		args.putString(ARG_OPEN_STATUS, txtCanopyOpenStatus.getText().toString());
 		args.putString(ARG_CLOSE_STATUS, txtCanopyCloseStatus.getText().toString());
-		args.putString(ARG_ANEMOGRAPH_CONN, txtAnemographConnStatus.getText().toString());
-		args.putString(ARG_THERMOHYGROGRAPH_1_CONN, txtThermohygrograph1ConnStatus.getText().toString());
-		args.putString(ARG_THERMOHYGROGRAPH_2_CONN, txtThermohygrograph2ConnStatus.getText().toString());
-		args.putString(ARG_LOCATOR_CONN, txtLocatorConnStatus.getText().toString());
-		args.putString(ARG_LOCATION, txtCanopyLocation.getText().toString());
-		args.putString(ARG_TEM_1, txtTem1.getText().toString());
-		args.putString(ARG_HUM_1, txtHum1.getText().toString());
-		args.putString(ARG_TEM_2, txtTem2.getText().toString());
-		args.putString(ARG_HUM_2, txtHum2.getText().toString());
-		args.putString(ARG_WIND_SPEED, txtWindSpeed.getText().toString());
+		args.putString(ARG_HYGROTHERMOGRAPH_CONN, txtHygrothermographConnStatus.getText().toString());
+		args.putString(ARG_TEM, txtTem.getText().toString());
+		args.putString(ARG_HUM, txtHum.getText().toString());
 		args.putString(ARG_POST_RATE, editPostRate.getText().toString());
+		args.putString(ARG_LIGHT_BRIGHTNESS, editLightBrightness.getText().toString());
+		args.putString(ARG_DELAY_TIME, editDelayTime.getText().toString());
 		if (!this.isStateSaved())
 			this.setArguments(args);
+		*/
 	}
 
 	@Override
@@ -170,7 +149,23 @@ public class CanopyFragment extends Fragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		initListener();
-		requestParam(ConfigParameter.SERVICE_PARAM_POST_RATE_CANOPY);
+		new Thread(new Runnable() {
+			public void run() {
+				requestParam(ConfigParameter.SERVICE_PARAM_POST_RATE_CANOPY);
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				requestParam(ConfigParameter.SERVICE_PARAM_STRIP_LIGHT_BRIGHTNESS);
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				requestParam(ConfigParameter.SERVICE_PARAM_CANOPY_DELAY_TIME);
+			}
+		}).start();
 	}
 
 	private void initView(View view) {
@@ -178,41 +173,49 @@ public class CanopyFragment extends Fragment {
 		txtCanopyStatus = view.findViewById(R.id.txt_canopy_status);
 		txtCanopyOpenStatus = view.findViewById(R.id.txt_canopy_open_switch_status);
 		txtCanopyCloseStatus = view.findViewById(R.id.txt_canopy_close_switch_status);
-		txtAnemographConnStatus = view.findViewById(R.id.txt_anemograph_conn_status);
-		txtThermohygrograph1ConnStatus = view.findViewById(R.id.txt_thermohygrograph_1_conn_status);
-		txtThermohygrograph2ConnStatus = view.findViewById(R.id.txt_thermohygrograph_2_conn_status);
-		txtLocatorConnStatus = view.findViewById(R.id.txt_canopy_locator_conn_status);
-		txtCanopyLocation = view.findViewById(R.id.txt_canopy_location);
-		txtTem1 = view.findViewById(R.id.txt_tem1);
-		txtHum1 = view.findViewById(R.id.txt_hum1);
-		txtTem2 = view.findViewById(R.id.txt_tem2);
-		txtHum2 = view.findViewById(R.id.txt_hum2);
-		txtWindSpeed = view.findViewById(R.id.txt_wind_speed);
+		txtHygrothermographConnStatus = view.findViewById(R.id.txt_canopy_hygrothermograph_conn_status);
+		txtTem = view.findViewById(R.id.txt_canopy_temp);
+		txtHum = view.findViewById(R.id.txt_canopy_hum);
 
 		editPostRate = view.findViewById(R.id.edit_canopy_post_rate);
+		editLightBrightness = view.findViewById(R.id.edit_strip_light_brightness);
+		editDelayTime = view.findViewById(R.id.edit_canopy_delay_time);
 
 		btnSetPostRate = view.findViewById(R.id.btn_canopy_post_rate_set);
+		btnSetLightBrightness = view.findViewById(R.id.btn_strip_light_brightness_set);
+		btnSetDelayTime = view.findViewById(R.id.btn_canopy_delay_time_set);
 		btnOpenCanopy = view.findViewById(R.id.btn_canopy_open);
 		btnCloseCanopy = view.findViewById(R.id.btn_canopy_close);
 		btnResetCanopy = view.findViewById(R.id.btn_canopy_reset);
 
+		mContainerActivity = (MainActivity) getActivity();
+
+		if (mContainerActivity.mCanopy != null) {
+			txtCanopyConnStatus.setText(mContainerActivity.mCanopy.getConnectionState().toString());
+			txtCanopyStatus.setText(mContainerActivity.mCanopy.getCanopyState().toString());
+			txtCanopyOpenStatus.setText((mContainerActivity.mCanopy.getOpenedLimitSwitchStatus() == 1 ? "TRIGGER_YES" : "TRIGGER_NO"));
+			txtCanopyCloseStatus.setText((mContainerActivity.mCanopy.getClosedLimitSwitchStatus() == 1 ? "TRIGGER_YES" : "TRIGGER_NO"));
+			Hygrothermograph hygrothermograph = mContainerActivity.mCanopy.getHygrothermograph();
+			txtHygrothermographConnStatus.setText(hygrothermograph.getConnStatus().toString());
+			float temperature = hygrothermograph.getTemperature();
+			txtTem.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
+			txtHum.setText(String.valueOf(hygrothermograph.getHumidity()));
+		}
+
+		/*
 		if (getArguments() != null) {
 			txtCanopyConnStatus.setText(valueCanopyConn);
 			txtCanopyStatus.setText(valueCanopyStatus);
 			txtCanopyOpenStatus.setText(valueOpenStatus);
 			txtCanopyCloseStatus.setText(valueCloseStatus);
-			txtAnemographConnStatus.setText(valueAnemographConn);
-			txtThermohygrograph1ConnStatus.setText(valueThermohygrograph1Conn);
-			txtThermohygrograph2ConnStatus.setText(valueThermohygrograph2Conn);
-			txtLocatorConnStatus.setText(valueLocatorConn);
-			txtCanopyLocation.setText(valueLocation);
-			txtTem1.setText(valueTem1);
-			txtHum1.setText(valueHum1);
-			txtTem2.setText(valueTem2);
-			txtHum2.setText(valueHum2);
-			txtWindSpeed.setText(valueWindSpeed);
+			txtHygrothermographConnStatus.setText(valueHygrothermographConn);
+			txtTem.setText(valueTem);
+			txtHum.setText(valueHum);
 			editPostRate.setText(valuePostRate);
+			editLightBrightness.setText(valueLightBrightness);
+			editDelayTime.setText(valueDelayTime);
 		}
+		*/
 
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
@@ -225,6 +228,20 @@ public class CanopyFragment extends Fragment {
 								return;
 							}
 							setParam(ConfigParameter.SERVICE_PARAM_POST_RATE_CANOPY, Integer.parseInt(editPostRate.getText().toString()));
+							break;
+						case R.id.btn_strip_light_brightness_set:
+							if (TextUtils.isEmpty(editLightBrightness.getText().toString())) {
+								editLightBrightness.setError("No Empty!");
+								return;
+							}
+							setParam(ConfigParameter.SERVICE_PARAM_STRIP_LIGHT_BRIGHTNESS, Integer.parseInt(editLightBrightness.getText().toString()));
+							break;
+						case R.id.btn_canopy_delay_time_set:
+							if (TextUtils.isEmpty(editDelayTime.getText().toString())) {
+								editDelayTime.setError("No Empty!");
+								return;
+							}
+							setParam(ConfigParameter.SERVICE_PARAM_CANOPY_DELAY_TIME, Integer.parseInt(editDelayTime.getText().toString()));
 							break;
 						case R.id.btn_canopy_open:
 							mContainerActivity.mCanopy.startOpening();
@@ -241,43 +258,32 @@ public class CanopyFragment extends Fragment {
 		};
 
 		btnSetPostRate.setOnClickListener(listener);
+		btnSetLightBrightness.setOnClickListener(listener);
+		btnSetDelayTime.setOnClickListener(listener);
 		btnOpenCanopy.setOnClickListener(listener);
 		btnCloseCanopy.setOnClickListener(listener);
 		btnResetCanopy.setOnClickListener(listener);
 	}
 
 	private void initListener() {
-		mContainerActivity = (MainActivity) getActivity();
 
 		mContainerActivity.setCanopyListener(new CanopyListener() {
 			@Override
 			public void onPost(ConnStatus connStatus, CanopyState canopyState) {
-				Anemograph anemograph = mContainerActivity.mCanopy.getAnemograph();
-				Thermohygrograph thermohygrograph_1 = mContainerActivity.mCanopy.getThermohygrograph_1();
-				Thermohygrograph thermohygrograph_2 = mContainerActivity.mCanopy.getThermohygrograph_2();
-				CanopyLocator canopyLocator = mContainerActivity.mCanopy.getCanopyLocator();
 				txtCanopyConnStatus.setText(connStatus.toString());
 				txtCanopyStatus.setText(canopyState.toString());
 				txtCanopyOpenStatus.setText((mContainerActivity.mCanopy.getOpenedLimitSwitchStatus() == 1 ? "TRIGGER_YES" : "TRIGGER_NO"));
 				txtCanopyCloseStatus.setText((mContainerActivity.mCanopy.getClosedLimitSwitchStatus() == 1 ? "TRIGGER_YES" : "TRIGGER_NO"));
-				txtAnemographConnStatus.setText(anemograph.getAnemographConnState().toString());
-				txtThermohygrograph1ConnStatus.setText(thermohygrograph_1.getThermohygrographConnState().toString());
-				txtThermohygrograph2ConnStatus.setText(thermohygrograph_2.getThermohygrographConnState().toString());
-				txtLocatorConnStatus.setText(canopyLocator.getGPSConnState().toString());
-				txtCanopyLocation.setText(canopyLocator.getLongitude() / 10000000f + (canopyLocator.getEastOrWest() == 0 ? "E, " : "W, ")
-						+ canopyLocator.getLatitude() / 10000000f + (canopyLocator.getSouthOrNorth() == 0 ? "N" : "S"));
-				float temperature = (thermohygrograph_1.getTemperature() - 1000) / 10f;
-				txtTem1.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
-				txtHum1.setText(String.valueOf(thermohygrograph_1.getHumidity()));
-				temperature = (thermohygrograph_2.getTemperature() - 1000) / 10f;
-				txtTem2.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
-				txtHum2.setText(String.valueOf(thermohygrograph_2.getHumidity()));
-				txtWindSpeed.setText(String.valueOf(anemograph.getWindSpeed() / 10f));
+				Hygrothermograph hygrothermograph = mContainerActivity.mCanopy.getHygrothermograph();
+				txtHygrothermographConnStatus.setText(hygrothermograph.getConnStatus().toString());
+				float temperature = hygrothermograph.getTemperature();
+				txtTem.setText((temperature > -40f && temperature < 100f) ? String.valueOf(temperature) : "N/A");
+				txtHum.setText(String.valueOf(hygrothermograph.getHumidity()));
 			}
 
 			@Override
 			public void onOperationResult(ServiceCode serviceCode, ServiceResult serviceResult) {
-				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, serviceCode.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -291,7 +297,7 @@ public class CanopyFragment extends Fragment {
 
 			@Override
 			public void onSetParam(ServiceResult serviceResult, ConfigParameter configParameter, ConfigFailReason configFailReason) {
-				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(mContainerActivity, "Set " + configParameter.toString() + " " + serviceResult.toString(), Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

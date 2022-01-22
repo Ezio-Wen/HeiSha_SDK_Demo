@@ -16,15 +16,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Charger Connection Status : "
-			android:textSize="15sp" />
+			android:text="Charger Connection Status : " />
 
 		<TextView
 			android:id="@+id/txt_charger_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -36,15 +34,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Charging Status : "
-			android:textSize="15sp" />
+			android:text="Charging Status : " />
 
 		<TextView
 			android:id="@+id/txt_charging_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -56,15 +52,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Battery Detection Status : "
-			android:textSize="15sp" />
+			android:text="Battery Detection Status : " />
 
 		<TextView
 			android:id="@+id/txt_battery_detection_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -76,15 +70,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Drone Status : "
-			android:textSize="15sp" />
+			android:text="Drone Status : " />
 
 		<TextView
 			android:id="@+id/txt_drone_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -96,21 +88,18 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Charging Voltage : "
-			android:textSize="15sp" />
+			android:text="Charging Voltage : " />
 
 		<TextView
 			android:id="@+id/txt_charging_voltage"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0.0"
-			android:textSize="15sp" />
+			android:text="0.0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" V"
-			android:textSize="15sp" />
+			android:text=" V" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -122,21 +111,18 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Charging Current : "
-			android:textSize="15sp" />
+			android:text="Charging Current : " />
 
 		<TextView
 			android:id="@+id/txt_charging_current"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0.0"
-			android:textSize="15sp" />
+			android:text="0.0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" A"
-			android:textSize="15sp" />
+			android:text=" A" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -148,21 +134,18 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Battery Temperature : "
-			android:textSize="15sp" />
+			android:text="Battery Temperature : " />
 
 		<TextView
 			android:id="@+id/txt_battery_temperature"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0.0"
-			android:textSize="15sp" />
+			android:text="0.0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" °C"
-			android:textSize="15sp" />
+			android:text=" °C" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -174,21 +157,18 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Battery Percentage : "
-			android:textSize="15sp" />
+			android:text="Battery Percentage : " />
 
 		<TextView
 			android:id="@+id/txt_battery_percentage"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" %"
-			android:textSize="15sp" />
+			android:text=" %" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -200,21 +180,18 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Charging Duration : "
-			android:textSize="15sp" />
+			android:text="Charging Duration : " />
 
 		<TextView
 			android:id="@+id/txt_charging_duration"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" min"
-			android:textSize="15sp" />
+			android:text=" min" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -226,8 +203,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Battery Type : "
-			android:textSize="15sp" />
+			android:text="Battery Type : " />
 
 		<Spinner
 			android:id="@+id/spinner_battery_type"
@@ -242,43 +218,24 @@
 		android:layout_width="wrap_content"
 		android:layout_height="0dp"
 		android:layout_weight="1"
-		android:gravity="center"
-		android:visibility="gone">
-
-		<Switch
-			android:id="@+id/switch_force_power_on_charging"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Force to power on charging "
-			android:textSize="15sp"
-			tools:ignore="UseSwitchCompatOrMaterialXml" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="0dp"
-		android:layout_weight="1"
 		android:gravity="center">
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Charger Post Rate : "
-			android:textSize="15sp" />
+			android:text="Charger Post Rate : " />
 
 		<EditText
 			android:id="@+id/edit_charger_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" s "
-			android:textSize="15sp" />
+			android:text=" s " />
 
 		<Button
 			android:id="@+id/btn_charger_post_rate_set"

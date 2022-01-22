@@ -16,15 +16,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Remote Control Connection Status : "
-			android:textSize="15sp" />
+			android:text="Remote Control Connection Status : " />
 
 		<TextView
 			android:id="@+id/txt_rc_conn_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -36,15 +34,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Remote Control Status : "
-			android:textSize="15sp" />
+			android:text="Remote Control Status : " />
 
 		<TextView
 			android:id="@+id/txt_rc_power_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -56,15 +52,13 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Remote Control USB Cable Status : "
-			android:textSize="15sp" />
+			android:text="Remote Control USB Cable Status : " />
 
 		<TextView
 			android:id="@+id/txt_rc_usb_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Unknown"
-			android:textSize="15sp" />
+			android:text="Unknown" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -76,21 +70,18 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Temperature : "
-			android:textSize="15sp" />
+			android:text="Temperature : " />
 
 		<TextView
 			android:id="@+id/txt_rc_temperature"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0.0"
-			android:textSize="15sp" />
+			android:text="0.0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" °C"
-			android:textSize="15sp" />
+			android:text=" °C" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -102,21 +93,18 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Humidity : "
-			android:textSize="15sp" />
+			android:text="Humidity : " />
 
 		<TextView
 			android:id="@+id/txt_rc_humidity"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="0.0"
-			android:textSize="15sp" />
+			android:text="0.0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" %"
-			android:textSize="15sp" />
+			android:text=" %" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -128,22 +116,19 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Remote Control Post Rate : "
-			android:textSize="15sp" />
+			android:text="Remote Control Post Rate : " />
 
 		<EditText
 			android:id="@+id/edit_rc_post_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:inputType="numberDecimal"
-			android:text="0"
-			android:textSize="15sp" />
+			android:text="0" />
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=" s "
-			android:textSize="15sp" />
+			android:text=" s " />
 
 		<Button
 			android:id="@+id/btn_rc_post_rate_set"

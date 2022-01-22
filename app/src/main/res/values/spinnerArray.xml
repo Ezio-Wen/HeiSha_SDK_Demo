@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string-array name="spinnerArray">
+		<item>Unknown</item>
 		<item>2S</item>
 		<item>3S</item>
 		<item>4S</item>

@@ -38,6 +38,7 @@ import com.heisha.heisha_sdk.Component.ControlCenter.ConfigFailReason;
 import com.heisha.heisha_sdk.Component.ControlCenter.ConfigParameter;
 import com.heisha.heisha_sdk.Component.ControlCenter.ControlCenter;
 import com.heisha.heisha_sdk.Component.ControlCenter.ControlCenterStateCallback;
+import com.heisha.heisha_sdk.Component.ControlCenter.ThingCode;
 import com.heisha.heisha_sdk.Component.ControlCenter.ThingLevel;
 import com.heisha.heisha_sdk.Component.EdgeComputing.EdgeComputing;
 import com.heisha.heisha_sdk.Component.EdgeComputing.EdgeStateCallback;
@@ -359,19 +360,19 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onThingsPost(ThingLevel thingLevel, int code) {
 				Log.d(TAG, "onThingsPost: " + thingLevel.toString() + " code" + code);
-				switch(code) {
-					case 101:
+				switch(ThingCode.convert(code)) {
+					case THING_CODE_ONE_CLICK_FLIGHT_PREPARATION_FAILED:
 						Toast.makeText(MainActivity.this, "One-Click Flight Preparation Failed, Alarm "
 								+ mControlCenter.getThing().getParam().getAlarm(), Toast.LENGTH_SHORT).show();
 						break;
-					case 102:
+					case THING_CODE_ONE_CLICK_CHARGING_FAILED:
 						Toast.makeText(MainActivity.this, "One-Click Charging Failed, Alarm "
 								+ mControlCenter.getThing().getParam().getAlarm(), Toast.LENGTH_SHORT).show();
 						break;
-					case 1:
+					case THING_CODE_ONE_CLICK_FLIGHT_PREPARATION_SUCCESSFUL:
 						Toast.makeText(MainActivity.this, "One-Click Flight Preparation Complete", Toast.LENGTH_SHORT).show();
 						break;
-					case 2:
+					case THING_CODE_ONE_CLICK_CHARGING_SUCCESSFUL:
 						Toast.makeText(MainActivity.this, "One-Click Charging Complete", Toast.LENGTH_SHORT).show();
 						break;
 				}

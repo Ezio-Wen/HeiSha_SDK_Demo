@@ -124,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	@Override
+	protected void onDestroy() {
+		disconnectDevice();
+		super.onDestroy();
+	}
+
 	private void registApp(final String serverURI, String deviceSerial) {
 		HSSDKManager.getInstance().registAPP(deviceSerial, serverURI, new SDKManagerCallback() {
 			@Override
@@ -233,7 +239,16 @@ public class MainActivity extends AppCompatActivity {
 					public void onClick(View v) {
 						String serverURL = editServerURL.getText().toString();
 						String deviceSerial = editDeviceSerial.getText().toString();
-						registApp(serverURL, deviceSerial);
+						if (isDeviceConnected) {
+							if (!deviceSerial.equals(mPref.getString("deviceSerial", ""))) {
+								disconnectDevice();
+								mControlCerterListener.onServerConnectionChanged(ConnStatus.DISCONNECTED, reconnectionTimes);
+								mControlCerterListener.onDeviceConnectionChanged(ConnStatus.DISCONNECTED, mDNEST.getDeviceName());
+								registApp(serverURL, deviceSerial);
+							}
+						} else {
+							registApp(serverURL, deviceSerial);
+						}
 						SharedPreferences.Editor edit = mPref.edit();
 						edit.putString("serverURL", serverURL);
 						edit.putString("deviceSerial", deviceSerial);
@@ -360,7 +375,10 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onThingsPost(ThingLevel thingLevel, int code) {
 				Log.d(TAG, "onThingsPost: " + thingLevel.toString() + " code" + code);
-				switch(ThingCode.convert(code)) {
+				ThingCode convertCode = ThingCode.convert(code);
+				if (convertCode == null)
+					return;
+				switch(convertCode) {
 					case THING_CODE_ONE_CLICK_FLIGHT_PREPARATION_FAILED:
 						Toast.makeText(MainActivity.this, "One-Click Flight Preparation Failed, Alarm "
 								+ mControlCenter.getThing().getParam().getAlarm(), Toast.LENGTH_SHORT).show();
@@ -509,6 +527,13 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		});
+	}
+
+	public void disconnectDevice() {
+		HSSDKManager.getInstance().disconnect();
+		isServerConnected = false;
+		isDeviceConnected = false;
+		reconnectionTimes = 0;
 	}
 
 	@Override

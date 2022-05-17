@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+
+	<Button
+		android:id="@+id/btn_alert_canopy_err"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="The canopy open without command"
+		android:textAllCaps="false" />
+
+	<Button
+		android:id="@+id/btn_alert_uav_takeoff_ready"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="The UAV ready for takeoff"
+		android:textAllCaps="false" />
+
+	<Button
+		android:id="@+id/btn_alert_uav_takeoff"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="The UAV is taking off"
+		android:textAllCaps="false" />
+
+	<Button
+		android:id="@+id/btn_alert_uav_return_to_home"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="The UAV is returning home"
+		android:textAllCaps="false" />
+</LinearLayout>

@@ -207,10 +207,16 @@
 
 		<Spinner
 			android:id="@+id/spinner_battery_type"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:entries="@array/spinnerArray" />
+
+		<Button
+			android:id="@+id/btn_battery_type_set"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Set" />
 
 	</LinearLayout>
 

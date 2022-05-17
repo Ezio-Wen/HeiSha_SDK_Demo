@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.heisha.heisha_sdk.Component.ConnStatus;
@@ -37,6 +39,7 @@ public class ControlCenterFragment extends Fragment {
 
 	private Button btnSystemReset;
 	private Button btnDisconnect;
+	private Button btnAlertTest;
 	private Button btnOneClickFlightPreparation;
 	private Button btnOneClickCharging;
 
@@ -99,6 +102,7 @@ public class ControlCenterFragment extends Fragment {
 
 		btnSystemReset = view.findViewById(R.id.btn_system_reset);
 		btnDisconnect = view.findViewById(R.id.btn_disconnect);
+		btnAlertTest = view.findViewById(R.id.btn_alert_test);
 		btnOneClickFlightPreparation = view.findViewById(R.id.btn_one_click_flight_preparation);
 		btnOneClickCharging = view.findViewById(R.id.btn_one_click_charging);
 
@@ -111,6 +115,43 @@ public class ControlCenterFragment extends Fragment {
 							mContainerActivity.mControlCenter.resetSystem();
 							break;
 						case R.id.btn_disconnect:
+							mContainerActivity.disconnectDevice();
+							txtServerConnStatus.setText(ConnStatus.DISCONNECTED.toString());
+							txtDeviceConnStatus.setText(ConnStatus.DISCONNECTED.toString());
+							break;
+						case R.id.btn_alert_test:
+							AlertDialog.Builder dialogBuilderAlert = new AlertDialog.Builder(mContainerActivity);
+							dialogBuilderAlert.setTitle("Alert Test");
+							LinearLayout layout = (LinearLayout) LayoutInflater.from(mContainerActivity).inflate(R.layout.dialog_alert_test, null);
+							Button btnAlertCanopyERR = layout.findViewById(R.id.btn_alert_canopy_err);
+							Button btnAlertUAVTakeoffReady = layout.findViewById(R.id.btn_alert_uav_takeoff_ready);
+							Button btnAlertUAVTakeoff = layout.findViewById(R.id.btn_alert_uav_takeoff);
+							Button btnAlertUAVReturn = layout.findViewById(R.id.btn_alert_uav_return_to_home);
+							View.OnClickListener listener1 = new View.OnClickListener() {
+								@Override
+								public void onClick(View v) {
+									switch(v.getId()) {
+										case R.id.btn_alert_canopy_err:
+											mContainerActivity.mControlCenter.sendAnAlert(ServiceCode.ALARM_CANOPY_ERR_OPEN);
+											break;
+										case R.id.btn_alert_uav_takeoff_ready:
+											mContainerActivity.mControlCenter.sendAnAlert(ServiceCode.ALARM_UVA_TAKE_OFF_READY);
+											break;
+										case R.id.btn_alert_uav_takeoff:
+											mContainerActivity.mControlCenter.sendAnAlert(ServiceCode.ALARM_UVA_TAKE_OFF);
+											break;
+										case R.id.btn_alert_uav_return_to_home:
+											mContainerActivity.mControlCenter.sendAnAlert(ServiceCode.ALARM_UVA_HOMEWARD_VOYAGE);
+											break;
+									}
+								}
+							};
+							btnAlertCanopyERR.setOnClickListener(listener1);
+							btnAlertUAVTakeoffReady.setOnClickListener(listener1);
+							btnAlertUAVTakeoff.setOnClickListener(listener1);
+							btnAlertUAVReturn.setOnClickListener(listener1);
+							dialogBuilderAlert.setView(layout);
+							dialogBuilderAlert.show();
 							break;
 						case R.id.btn_one_click_flight_preparation:
 							mContainerActivity.mControlCenter.OneClickFlightPreparation();
@@ -125,6 +166,7 @@ public class ControlCenterFragment extends Fragment {
 
 		btnSystemReset.setOnClickListener(listener);
 		btnDisconnect.setOnClickListener(listener);
+		btnAlertTest.setOnClickListener(listener);
 		btnOneClickFlightPreparation.setOnClickListener(listener);
 		btnOneClickCharging.setOnClickListener(listener);
 	}

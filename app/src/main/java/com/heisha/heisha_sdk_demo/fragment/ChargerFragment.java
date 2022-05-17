@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -84,6 +83,7 @@ public class ChargerFragment extends Fragment {
 	private Button btnTurnOnDrone;
 	private Button btnTurnOffDrone;
 	private Button btnSetPostRate;
+	private Button btnSetBatteryType;
 
 	private Spinner spinnerBatteryType;
 
@@ -195,6 +195,7 @@ public class ChargerFragment extends Fragment {
 		editPostRate = view.findViewById(R.id.edit_charger_post_rate);
 
 		btnSetPostRate = view.findViewById(R.id.btn_charger_post_rate_set);
+		btnSetBatteryType = view.findViewById(R.id.btn_battery_type_set);
 		btnStartCharging = view.findViewById(R.id.btn_charging_start);
 		btnStopCharging = view.findViewById(R.id.btn_charging_stop);
 		btnTurnOnDrone = view.findViewById(R.id.btn_drone_turn_on);
@@ -249,6 +250,12 @@ public class ChargerFragment extends Fragment {
 							}
 							setParam(SERVICE_PARAM_POST_RATE_CD, Integer.parseInt(editPostRate.getText().toString()));
 							break;
+						case R.id.btn_battery_type_set:
+							int selectedItemPosition = spinnerBatteryType.getSelectedItemPosition();
+							if (selectedItemPosition > 0) {
+								setParam(SERVICE_PARAM_BATTERY_TYPE, selectedItemPosition - 1);
+							}
+							break;
 						case R.id.btn_charging_start:
 							mContainerActivity.mCharger.startCharging();
 							break;
@@ -267,11 +274,12 @@ public class ChargerFragment extends Fragment {
 		};
 
 		btnSetPostRate.setOnClickListener(listener);
+		btnSetBatteryType.setOnClickListener(listener);
 		btnStartCharging.setOnClickListener(listener);
 		btnStopCharging.setOnClickListener(listener);
 		btnTurnOnDrone.setOnClickListener(listener);
 		btnTurnOffDrone.setOnClickListener(listener);
-
+/*
 		spinnerBatteryType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -284,6 +292,7 @@ public class ChargerFragment extends Fragment {
 			public void onNothingSelected(AdapterView<?> parent) {
 			}
 		});
+*/
 	}
 
 	private void initListener() {
